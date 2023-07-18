@@ -24,7 +24,7 @@
     <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
 
     <button class="btn btn-primary">로그인</button>
-    <button type="button" class="btn btn-primary" onclick="location.href='/members/new'">회원가입</button>
+    <button type="button" class="btn btn-danger" onclick="location.href='/members/new'">회원가입</button>
     <a href="https://kauth.kakao.com/oauth/authorize
 ?client_id=a4c6d6233a4887bf548af4cfff38b522
 &redirect_uri=http://localhost:8080/members/login/kakao

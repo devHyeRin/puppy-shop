@@ -1,5 +1,6 @@
 package com.shop.entity;
 
+import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import com.shop.repository.ItemRepository;
 import com.shop.repository.MemberRepository;
@@ -45,8 +46,9 @@ class OrderTest {
         item.setPrice(10000);
         item.setItemDetail("상세 설명");
         item.setItemSellStatus(ItemSellStatus.SELL);
+        item.setCategory(ItemCategory.FOOD);
         item.setStockNumber(100);
-        item.setRegTime(LocalDateTime.now());
+        item.setCreateTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());
         return item;
     }

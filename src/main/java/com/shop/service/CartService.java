@@ -34,24 +34,24 @@ public class CartService {
 
     public Long addCart(CartItemDto cartItemDto, String email){
         Item item = itemRepository.findById(cartItemDto.getItemId())
-                .orElseThrow(EntityExistsException::new);  // 상품 추출
-        Member member = memberRepository.findByEmail(email);  // 로그인된 사용자 추출
+                .orElseThrow(EntityExistsException::new);
+        Member member = memberRepository.findByEmail(email);
 
-        Cart cart = cartRepository.findByMemberId(member.getId());  // 카트 추출
-        if(cart == null){ // 카트가 null이면 -> 신규가입자
-            cart = Cart.createCart(member);  // 카트생성
+        Cart cart = cartRepository.findByMemberId(member.getId());
+        if(cart == null){      // 카트 생성 전
+            cart = Cart.createCart(member);
             cartRepository.save(cart);
         }
-        //카트에 담긴 아이템 추출
+        /*카트에 담긴 아이템 추출*/
         CartItem savedCartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
 
         if(savedCartItem != null){  // 카트에 아이템이 존재하는 경우
-            savedCartItem.addCount(cartItemDto.getCount());  // 수량증가
+            savedCartItem.addCount(cartItemDto.getCount());
             return savedCartItem.getId();
         }
         else{  // 카트에 아이템이 없는 경우
-            CartItem cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());  // 카트 아
-            cartItemRepository.save(cartItem);  // DB에 저장
+            CartItem cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());
+            cartItemRepository.save(cartItem);
             return cartItem.getId();
         }
     }

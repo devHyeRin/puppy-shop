@@ -3,6 +3,7 @@ package com.shop.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import com.shop.dto.ItemSearchDto;
 import com.shop.dto.MainItemDto;
@@ -20,17 +21,21 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
-    private JPAQueryFactory queryFactory;  // 동적쿼리 사용하기 위해 JPAQueryFactory 변수 선언
-    //생성자
+    private JPAQueryFactory queryFactory;
+
     public ItemRepositoryCustomImpl(EntityManager em){
-        this.queryFactory = new JPAQueryFactory(em);  // JPAQueryFactory 실질적인 객체가 만들어집니다.
+        this.queryFactory = new JPAQueryFactory(em);
     }
+    /*판매상태 조회*/
     private BooleanExpression searchSellStatusEq(ItemSellStatus searchSellStatus){
         return searchSellStatus == null ? null : QItem.item.itemSellStatus.eq(searchSellStatus);
-        //ItemSellStatus null이면 null리턴, null이 아니면 SELL / SOLD_OUT 둘중 하나 리턴
+    }
+    /*카테고리 조회*/
+    private BooleanExpression searchCategoryEq(ItemCategory searchCategory){
+        return searchCategory == null ? null : QItem.item.category.eq(searchCategory);
     }
     private BooleanExpression regDtsAfter(String searchDateType){  //all, 1d, 1w, 1m 6m
-        LocalDateTime dateTime = LocalDateTime.now();  // 현재시간을 추출해서 변수에 대입
+        LocalDateTime dateTime = LocalDateTime.now();
 
         if(StringUtils.equals("all", searchDateType) || searchDateType == null){
             return null;
@@ -47,15 +52,14 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         else if (StringUtils.equals("6m", searchDateType)){
             dateTime = dateTime.minusMonths(6);
         }
-        return QItem.item.regTime.after(dateTime);
-        //dateTime을 시간에 맞게 세팅 후 시간에 맞는 등록된 상품이 조회하도록 조건값 반환
+        return QItem.item.createTime.after(dateTime);
     }
 
     private BooleanExpression searchByLike(String searchBy, String searchQuery){
-        if(StringUtils.equals("itemNm", searchBy)){  // 상품명
+        if(StringUtils.equals("itemNm", searchBy)){
             return QItem.item.itemNm.like("%" + searchQuery + "%");
         }
-        else if(StringUtils.equals("createdBy", searchBy)){   // 작성자
+        else if(StringUtils.equals("createdBy", searchBy)){
             return QItem.item.createdBy.like("%" + searchQuery + "%");
         }
         return null;
@@ -66,6 +70,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         QueryResults<Item> results = queryFactory.selectFrom(QItem.item)
                 .where(regDtsAfter(itemSearchDto.getSearchDateType()),
                         searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
+                        searchCategoryEq(itemSearchDto.getSearchCategory()),
                         searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
                 .orderBy(QItem.item.id.desc())
                 .offset(pageable.getOffset())
@@ -85,9 +90,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         QItem item = QItem.item;
         QItemImg itemImg = QItemImg.itemImg;
 
-        //QMainItemDto @QueryProjection을 허용하면 dto로 바로 조회 가능
         QueryResults<MainItemDto> results = queryFactory.select(new QMainItemDto(item.id, item.itemNm, item.itemDetail, itemImg.imgUrl, item.price))
-                //join 내부 조인 .repImgYn.eq("Y") 대표이미지만 가져온다.
                 .from(itemImg).join(itemImg.item, item)
                 .where(itemImg.repImgYn.eq("Y"))
                 .where(itemNmLike(itemSearchDto.getSearchQuery()))

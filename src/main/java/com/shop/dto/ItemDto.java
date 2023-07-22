@@ -12,8 +12,8 @@ public class ItemDto {
     private String itemNm;
     private Integer price;
     private String itemDetail;
-    private String itemQuest;
-    private String sellStatCd;        // item 클래스 확인해보기!
+    private String sellStatCd;
+    private String category;
     private LocalDateTime regTime;
     private  LocalDateTime updateTime;
 }

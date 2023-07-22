@@ -26,7 +26,8 @@ class MemberServiceTest {
         MemberFormDto memberFormDto = new MemberFormDto();
         memberFormDto.setEmail("test@email.com");
         memberFormDto.setName("홍길동");
-        memberFormDto.setAddress("서울시 마포구 합정동");
+        memberFormDto.setAddress1("서울시 마포구 합정동");
+        memberFormDto.setAddress2("서울시 마포구 합정동");
         memberFormDto.setPassword("1234");
         return Member.createMember(memberFormDto, passwordEncoder);
     }
@@ -39,7 +40,8 @@ class MemberServiceTest {
         //assertEquals 비교하는 겁니다. 요청한 값과 실제 저장된 데이터를 비교
         assertEquals(member.getEmail(), savedMember.getEmail());
         assertEquals(member.getName(), savedMember.getName());
-        assertEquals(member.getAddress(), savedMember.getAddress());
+        assertEquals(member.getAddress1(), savedMember.getAddress1());
+        assertEquals(member.getAddress2(), savedMember.getAddress2());
         assertEquals(member.getPassword(), savedMember.getPassword());
         assertEquals(member.getRole(), savedMember.getRole());
     }

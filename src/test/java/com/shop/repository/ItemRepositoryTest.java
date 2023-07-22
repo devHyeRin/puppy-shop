@@ -3,6 +3,7 @@ package com.shop.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import com.shop.entity.Item;
 import com.shop.entity.QItem;
@@ -38,8 +39,9 @@ class ItemRepositoryTest {
         item.setPrice(10000);
         item.setItemDetail("테스트 상품 상세 설명");
         item.setItemSellStatus(ItemSellStatus.SELL);
+        item.setCategory(ItemCategory.FOOD);
         item.setStockNumber(100);
-        item.setRegTime(LocalDateTime.now());
+        item.setCreateTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());
 
         Item savedItem = itemRepository.save(item);
@@ -53,8 +55,9 @@ class ItemRepositoryTest {
             item.setPrice(10000 + i);
             item.setItemDetail("테스트 상품 상세 설명" + i);
             item.setItemSellStatus(ItemSellStatus.SELL);
+            item.setCategory(ItemCategory.FOOD);
             item.setStockNumber(100);
-            item.setRegTime(LocalDateTime.now());
+            item.setCreateTime(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
             Item savedItem = itemRepository.save(item);
         }
@@ -146,8 +149,9 @@ class ItemRepositoryTest {
             item.setPrice(10000 + i);
             item.setItemDetail("테스트 상품 상세 설명" + i);
             item.setItemSellStatus(ItemSellStatus.SELL);
+            item.setCategory(ItemCategory.FOOD);
             item.setStockNumber(100);
-            item.setRegTime(LocalDateTime.now());
+            item.setCreateTime(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
             itemRepository.save(item);
         }
@@ -157,8 +161,9 @@ class ItemRepositoryTest {
             item.setPrice(10000 + i);
             item.setItemDetail("테스트 상품 상세 설명" + i);
             item.setItemSellStatus(ItemSellStatus.SOLD_OUT);
+            item.setCategory(ItemCategory.FOOD);
             item.setStockNumber(0);
-            item.setRegTime(LocalDateTime.now());
+            item.setCreateTime(LocalDateTime.now());
             item.setUpdateTime(LocalDateTime.now());
             itemRepository.save(item);
         }

@@ -32,6 +32,7 @@ public class OrderService {
     public Long order(OrderDto orderDto, String email){
         Item item = itemRepository.findById(orderDto.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
+
         Member member = memberRepository.findByEmail(email);
 
         List<OrderItem> orderItemList = new ArrayList<>();
@@ -44,15 +45,18 @@ public class OrderService {
         return order.getId();
     }
 
+    /*주문 목록 조회*/
     @Transactional(readOnly = true)
     public Page<OrderHistDto> getOrderList(String email, Pageable pageable){
         List<Order> orders = orderRepository.findOrders(email, pageable);
         Long totalCount = orderRepository.countOrder(email);
+
         List<OrderHistDto> orderHistDtos = new ArrayList<>();
 
         for(Order order : orders){
             OrderHistDto orderHistDto = new OrderHistDto(order);
             List<OrderItem> orderItems = order.getOrderItems();
+
             for(OrderItem orderItem : orderItems){
                 ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn(orderItem.getItem().getId(), "Y");
                 OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());

@@ -33,7 +33,7 @@ public class ItemController {
         model.addAttribute("itemFormDto",new ItemFormDto());
         return "item/itemForm";
     }
-
+    /*상품 등록 처리*/
     @PostMapping(value = "/admin/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model, @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList){
         if(bindingResult.hasErrors()){
@@ -51,7 +51,7 @@ public class ItemController {
         }
         return "redirect:/";
     }
-
+    /*상품 수정 url*/
     @GetMapping(value = "/admin/item/{itemId}")
     public String itemDtl(@PathVariable("itemId")Long itemId, Model model){
         try {
@@ -64,7 +64,7 @@ public class ItemController {
         }
         return "item/itemForm";
     }
-    
+    /*상품 수정 업데이트*/
     @PostMapping(value = "/admin/item/{itemId}")
     public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model){
         if(bindingResult.hasErrors()){
@@ -80,9 +80,9 @@ public class ItemController {
             model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
             return "item/itemForm";
         }
-        return "redirect:/";  // 다시 실행
+        return "redirect:/";
     }
-
+    /*상품 조회*/
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
     public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);

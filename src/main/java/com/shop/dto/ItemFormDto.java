@@ -1,5 +1,6 @@
 package com.shop.dto;
 
+import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import com.shop.entity.Item;
 import lombok.Getter;
@@ -16,19 +17,20 @@ import java.util.List;
 public class ItemFormDto {
     private Long id;
 
-    @NotBlank(message = "상품명은 필수 입력 값입니다.")
+    @NotBlank(message = "상품명은 필수 항목입니다.")
     private String itemNm;
 
-    @NotNull(message = "가격은 필수 입력 값입니다.")
+    @NotNull(message = "가격은 필수 항목입니다.")
     private Integer price;
 
-    @NotBlank(message = "상품 설명은 필수 입력 값입니다.")
+    @NotBlank(message = "상품 설명은 필수 항목입니다.")
     private String itemDetail;
 
-    @NotNull(message = "재고는 필수 입력 값입니다.")
+    @NotNull(message = "재고 수량을 입력해주세요.")
     private Integer stockNumber;
 
-    private String itemQuest;
+    @NotNull(message = "카테고리를 선택해주세요.")
+    private ItemCategory category;
 
     private ItemSellStatus itemSellStatus;
 

@@ -26,7 +26,8 @@ public class Member extends BaseEntity{
 
     private String password;
 
-    private String address;
+    private String address1;
+    private String address2;
 
     private String phoneNumber;
 
@@ -37,11 +38,12 @@ public class Member extends BaseEntity{
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
+        member.setAddress1(memberFormDto.getAddress1());
+        member.setAddress2(memberFormDto.getAddress2());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
         member.setPhoneNumber(memberFormDto.getPhoneNumber());
-        member.setRole(Role.USER);
+        member.setRole(Role.ADMIN);
         return member;
     }
 }

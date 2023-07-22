@@ -23,13 +23,11 @@ public class OrderItem extends BaseEntity{
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private int orderPrice;  // 주문 가격
+    private int orderPrice;
 
-    private int count;   // 수량
+    private int count;
 
-//    private LocalDateTime regTime;
-//
-//    private LocalDateTime updateTime;
+
 
     public static OrderItem createOrderItem(Item item, int count){
         OrderItem orderItem = new OrderItem();

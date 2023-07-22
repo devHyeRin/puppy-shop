@@ -1,5 +1,6 @@
 package com.shop.entity;
 
+import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import com.shop.dto.ItemFormDto;
 import com.shop.exception.OutOfStockException;
@@ -8,7 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,30 +21,26 @@ public class Item extends BaseEntity{
     @Id
     @Column(name="item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;    // 상품코드
+    private Long id;
 
     @Column(nullable = false, length = 50)
-    private String itemNm;   // 상품명
+    private String itemNm;
 
     @Column(name = "price", nullable = false)
-    private int price;    // 가격
+    private int price;
 
     @Column(nullable = false)
-    private int stockNumber;  // 재고 수량
+    private int stockNumber;
 
     @Lob
     @Column(nullable = false)
-    private String itemDetail;   // 상품 상세 설명
-
-    @Lob
-    private String itemQuest;  // 요청 사항
+    private String itemDetail;
 
     @Enumerated(EnumType.STRING)
-    private ItemSellStatus itemSellStatus;    // 상품 판매 상태
+    private ItemCategory category;
 
-//    private LocalDateTime regTime;    // 등록시간
-//
-//    private LocalDateTime updateTime;    // 수정시간
+    @Enumerated(EnumType.STRING)
+    private ItemSellStatus itemSellStatus;
 
     @ManyToMany
     @JoinTable(
@@ -59,17 +55,17 @@ public class Item extends BaseEntity{
         this.price = itemFormDto.getPrice();
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemDetail = itemFormDto.getItemDetail();
-        this.itemQuest = itemFormDto.getItemQuest();
+        this.category = itemFormDto.getCategory();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
     }
 
-    // 주문한 만큼 수량 빼는 메소드 생성
+    /*재고 감소*/
     public void removeStock(int stockNumber){
-        int restStock = this.stockNumber - stockNumber;  // 10, 5 / 10, 20
+        int restStock = this.stockNumber - stockNumber;
         if(restStock < 0) {
             throw new OutOfStockException("상품의 재고가 부족합니다.(현재 재고 수량 : " + this.stockNumber + ")");
         }
-        this.stockNumber = restStock;  // 5
+        this.stockNumber = restStock;
     }
 
     public void addStock(int stockNumber){

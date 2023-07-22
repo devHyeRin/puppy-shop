@@ -16,6 +16,6 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
             "where ci.cart.id = :cartId " +
             "and im.item.id = ci.item.id " +
             "and im.repImgYn = 'Y' " +
-            "order by ci.regTime desc")
+            "order by ci.createTime desc")
     List<CartDetailDto> findCartDetailDtoList(Long cartId);
 }

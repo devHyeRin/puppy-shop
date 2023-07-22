@@ -10,9 +10,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${uploadPath}")
     String uploadPath;
 
-    //uploadPath = "C:/shop1"
-    //images/item/xxx.jpg
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/images/**")

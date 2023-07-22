@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/members/login/error")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))  //로그아웃
+                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                 .logoutSuccessUrl("/");
 
         http.authorizeRequests()

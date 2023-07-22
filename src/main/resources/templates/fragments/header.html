@@ -1,44 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="header">
-    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarTogglerDemo03"
-                aria-controls="navbarTogglerDeomo03"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="/">Shop</a>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                    <a class="nav-link" href="/admin/item/new">상품 등록</a>
+    <div class="header">
+        <div class="headerTop">
+            <ul class="myInfo">
+                <li class="top" sec:authorize="isAuthenticated()">
+                    <p th:text="${#authentication.getName()} + '님'"></p>
                 </li>
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                    <a class="nav-link" href="/admin/items">상품 관리</a>
+                <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                    <a href="/admin/item/new">상품 등록</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/cart">장바구니</a>
+                <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                    <a href="/admin/items">상품 관리</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/orders">구매이력</a>
+                <li class="top" sec:authorize="hasAnyAuthority('ROLE_USER')">
+                    <a href="/orders">주문내역</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="/members/login">로그인</a>
+                <li class="top" sec:authorize="hasAnyAuthority('ROLE_USER')">
+                    <a href="/cart">장바구니</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/members/logout">로그아웃</a>
+                <li class="top" sec:authorize="isAuthenticated()">
+                    <a href="/mypage">마이페이지</a>
+                </li>
+                <li class="top" sec:authorize="isAnonymous()">
+                    <a href="/members/login">로그인</a>
+                </li>
+                <li class="top" sec:authorize="isAuthenticated()">
+                    <a href="/members/logout">로그아웃</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
-                <input name="searchQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
-    </nav>
+        <div class="headerCenter">  <!--로고-->
+            <div class="headerLogo">
+                <a href="/">
+                    <img src="/img/logoTitle.png" alt="homeLogo"/>
+                </a>
+            </div>
+            <div class="searchBtn">
+                <form th:action="@{/}" method="get">
+                    <input name="searchQuery" type="search" placeholder="강아지를 위해 필요한 것이 무엇인가요?" aria-label="Search">
+                    <button class="btn" type="submit"><span class="material-symbols-outlined">search</span></input>
+                </form>
+            </div>
+        </div>
+        <hr style="margin-top: 0">
+        <div class="headerCategory">  <!--카테고리-->
+            <ul class="menuCategory">
+                <li class="menu"><a>강아지 사료</a></li>
+                <li class="menu"><a>영양간식</a></li>
+                <li class="menu"><a>목욕용품</a></li>
+                <li class="menu"><a>장난감/옷</a></li>
+                <li class="menu"><a>강아지 잡화</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr style="margin: 0">
 </div>
-
 </html>

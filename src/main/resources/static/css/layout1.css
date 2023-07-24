@@ -1,11 +1,14 @@
 body{
     font-family: 'Noto Sans KR', sans-serif;
-    overflow: auto;
-}
-html{
+    overflow: scroll;
+    overflow-x: hidden;
     height: 100%;
-    margin: 0;
-    padding: 0;
+}
+
+.content-wrap{
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 60px;
 }
 
 

@@ -7,10 +7,14 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 public class MemberFormDto {
+//    @NotEmpty(message = "선택해주세요.")
+//    private String role;
+
     @NotBlank(message = "이름은 필수 항목입니다.")
     private String name;
 

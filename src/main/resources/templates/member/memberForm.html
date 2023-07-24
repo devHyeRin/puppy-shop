@@ -35,6 +35,12 @@
 
 <div layout:fragment="content">
     <form action="/members/new" role="form" method="post" th:object="${memberFormDto}">
+<!--        <div class="form-group">-->
+<!--            <select th:field="*{role}" class="custom-select">-->
+<!--                <option value="USER">일반사용자</option>-->
+<!--                <option value="ADMIN">관리자</option>-->
+<!--            </select>-->
+<!--        </div>-->
         <div class="form-group">
             <label th:for="name">이름</label>
             <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요.">

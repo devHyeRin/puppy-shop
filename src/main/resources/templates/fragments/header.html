@@ -6,9 +6,6 @@
 <div th:fragment="header" class="header">
         <div class="headerTop">
             <ul class="myInfo">
-                <li class="top" sec:authorize="isAuthenticated()">
-                    <p th:text="${#authentication.getName()} + '님'"></p>
-                </li>
                 <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                     <a href="/admin/item/new">상품 등록</a>
                 </li>
@@ -40,12 +37,12 @@
             </div>
             <div class="searchBtn">
                 <form th:action="@{/}" method="get">
-                    <input name="searchQuery" type="search" placeholder="강아지를 위해 필요한 것이 무엇인가요?" aria-label="Search">
+                    <input class="search-input" name="searchQuery" type="search" placeholder="강아지를 위해 필요한 것이 무엇인가요?" aria-label="Search">
                     <button class="btnSearch" type="submit"><span class="material-symbols-outlined">search</span></button></input>
                 </form>
             </div>
         </div>
-        <hr style="margin-top: 0">
+
         <div class="headerCategory">  <!--카테고리-->
             <ul class="menuCategory">
                 <li class="menu"><a>강아지 사료</a></li>
@@ -54,6 +51,7 @@
                 <li class="menu"><a>장난감/옷</a></li>
                 <li class="menu"><a>강아지 잡화</a></li>
             </ul>
+
         </div>
     <hr style="margin: 0">
 </div>

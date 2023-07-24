@@ -1,0 +1,17 @@
+.footer{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    background: #2f2e2e;
+    color: #cbc3c3;
+}
+.footer-area{
+    float: left;
+    margin-right: 80px;
+    text-align: left;
+}

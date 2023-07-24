@@ -1,0 +1,100 @@
+.header{
+    margin: 10px;
+    font-size: 15px;
+    color: black;
+}
+
+ul, li{
+    list-style: none;
+    display: flex;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+.myInfo{
+    float: right;
+
+}
+
+.top{
+    padding: 12px 35px;
+    margin-right: 8px;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.45);
+}
+.top:hover{
+    border-bottom: 3px solid #e17b7b;
+
+}
+
+.headerCenter{
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.headerLogo {
+    flex: 1;
+}
+
+img{
+    width: 298px;
+    height: 100px;
+}
+
+.searchBtn {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 40px;
+    margin-left: 70px
+}
+
+.searchBtn form {
+    display: flex;
+    align-items: center;
+}
+
+.menu{
+    padding: 10px 50px;
+    margin-right: 15px;
+    font-size: 16px;
+    border: 1px solid antiquewhite;
+}
+.menu:hover{
+    color: gray;
+}
+.headerCategory {
+    display: flex;
+    justify-content: center;
+}
+
+.menuCategory {
+    list-style: none;
+    display: flex;
+    padding: 0;
+
+}
+
+input{
+    width: 500px;
+    height: 50px;
+    border-radius: 13px;
+    padding: 5px 10px;
+    border-color: rgba(128, 128, 128, 0.15);
+}
+input:focus {
+    outline: 3px solid #e17b7b;
+}
+input::placeholder{
+    color: rgba(128, 128, 128, 0.45);
+}
+.btnSearch{
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+}

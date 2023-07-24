@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link th:href="@{/css/header.css}" rel="stylesheet">
+<link th:href="@{/css/footer.css}" rel="stylesheet">
 <head>
     <meta charset="UTF-8">
     <title>반려동물쇼핑몰 플러피퍼피</title>
@@ -24,7 +26,7 @@
 <body>
     <div th:replace="fragments/header::header"></div>
 
-    <div layout:fragment="content" class="content">
+    <div layout:fragment="content">
     </div>
 
     <div th:replace="fragments/footer::footer"></div>

@@ -25,10 +25,6 @@
 
     <button class="btn btn-primary">로그인</button>
     <button type="button" class="btn btn-danger" onclick="location.href='/members/new'">회원가입</button>
-<!--    <a href="https://kauth.kakao.com/oauth/authorize-->
-<!--?client_id=a4c6d6233a4887bf548af4cfff38b522-->
-<!--&redirect_uri=http://localhost:8080/members/login/kakao-->
-<!--&response_type=code"><img src="/img/kakaobutton.png"/></a>-->
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
   </form>
 </div>

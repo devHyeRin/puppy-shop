@@ -3,8 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<div th:fragment="header">
-    <div class="header">
+<div th:fragment="header" class="header">
         <div class="headerTop">
             <ul class="myInfo">
                 <li class="top" sec:authorize="isAuthenticated()">
@@ -42,7 +41,7 @@
             <div class="searchBtn">
                 <form th:action="@{/}" method="get">
                     <input name="searchQuery" type="search" placeholder="강아지를 위해 필요한 것이 무엇인가요?" aria-label="Search">
-                    <button class="btn" type="submit"><span class="material-symbols-outlined">search</span></input>
+                    <button class="btnSearch" type="submit"><span class="material-symbols-outlined">search</span></button></input>
                 </form>
             </div>
         </div>
@@ -56,7 +55,6 @@
                 <li class="menu"><a>강아지 잡화</a></li>
             </ul>
         </div>
-    </div>
     <hr style="margin: 0">
 </div>
 </html>

@@ -30,6 +30,10 @@ public class MemberController {
         if(bindingResult.hasErrors()){
             return "member/memberForm";
         }
+        if (memberFormDto.getPassword() != null && !memberFormDto.getPassword().equals(memberFormDto.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "비밀번호가 일치하지 않습니다.");
+            return "member/memberForm";
+        }
         try {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);

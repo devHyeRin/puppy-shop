@@ -23,9 +23,12 @@
       margin-bottom: 40px;
     }
     .form-input input{
+      height: 50px;
+      border-radius: 13px;
       margin: 10px 0 8px 0;
       width: 70%;
-
+      border-color: rgba(128, 128, 128, 0.15);
+      padding: 5px 10px;
     }
     .form-input input:focus{
       border: 2px solid gray;
@@ -48,6 +51,10 @@
       margin-right: 20px;
       font-size: 20px;
     }
+    .login_sns{
+      width: 180px;
+      margin: 0 auto;
+    }
   </style>
 </th:block>
 
@@ -68,9 +75,10 @@
 
           <div><button class="member_login" style="background: #ffc3c3">로그인</button></div>
           <div><button type="button" class="member_login" style="background: #fff7f7; border: 0.5px solid rgba(211,211,211,0.42); margin-bottom: 50px;" onclick="location.href='/members/new'">회원가입</button></div>
-          <div><a><img src="/img/kakaobutton.png" style="width: 180px; height: 45px"></a>
-            <a><img src="/img/btnG_축약형.png" style="width: 155px; height: 45px"></a>
-
+          <div class="login_sns">
+            <p style="font-size: 13px; color: gray">네이버, 구글 계정이 있으신가요?</p>
+            <a role="button"><img src="/img/btnG_아이콘사각.png" style="width: 50px; height: 50px; margin: auto 20px;"></a>
+            <a role="button"><img src="/img/btn_google_dark_normal_ios.png" style="width: 60px; height: 60px;"></a>
           </div>
             <input type="hidden"  th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         </form>

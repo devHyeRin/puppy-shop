@@ -70,7 +70,7 @@ img{
     list-style: none;
 }
 
-input{
+.search-input{
     width: 500px;
     height: 50px;
     border-radius: 13px;

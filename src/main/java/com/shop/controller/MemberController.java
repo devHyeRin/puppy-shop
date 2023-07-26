@@ -26,11 +26,11 @@ public class MemberController {
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
-    @GetMapping(value = "/mypage")
-    public String memberMypage(Model model){
-        model.addAttribute("memberFormDto", new MemberFormDto());
-        return "member/mypage";
-    }
+//    @GetMapping(value = "/mypage")
+//    public String memberMypage(Model model){
+//        model.addAttribute("memberFormDto", new MemberFormDto());
+//        return "member/mypage";
+//    }
 
     @PostMapping(value = "/new")
     public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){

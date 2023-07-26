@@ -55,12 +55,5 @@ public class MemberService implements UserDetailsService {
                 .build();
     }
 
-//    @Transactional
-//    public Member updateMember(String email, MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
-//        Member member = memberRepository.findByEmail(email);
-//        member.updateMember(memberFormDto, passwordEncoder);
-//
-//        return member;
-//    }
 
 }

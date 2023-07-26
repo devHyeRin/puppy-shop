@@ -36,10 +36,11 @@
     .row{
       width: 1350px;
       margin: 35px auto 40px auto;
-      display: flex;
+
     }
     .main_item{
       margin: 0 40px 40px 0;
+      display: flex;
     }
     .main_item_dtl{
       margin-top: 10px;
@@ -50,6 +51,7 @@
     .badge{
       font-size: 16px;
       letter-spacing: 3px;
+
     }
   </style>
 </th:block>
@@ -65,7 +67,7 @@
 
   <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
   <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-    <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+    <p class="h3" th:inline="text"><strong style="color: #d27878">'[[${itemSearchDto.searchQuery}]]'</strong>에 대한 검색결과</p>
   </div>
 
   <div class="row">
@@ -75,7 +77,8 @@
           <a th:href="'/item/' + ${item.id}" class="text-dark">
               <img th:src="${item.imgUrl}" class="repImg" th:alt="${item.itemNm}" height="400">
             <div class="main_item_dtl">
-              <h4 class="">[[${item.itemNm}]]</h4>
+              <h5 class="item_title">[[${item.itemNm}]]</h5>
+              <hr>
               <strong class=""><span>[[${item.price}]]원</span></strong>
             </div>
             <div class="main_item_status">

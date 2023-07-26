@@ -36,5 +36,14 @@ body{
     font-size: 16px;
     letter-spacing: 3px;
 }
-
+.category_title{
+    border-bottom: 5px solid #e87186;
+    display: inline-block;
+    padding: 0 0 8px 0;
+}
+.category_icon{
+    margin-left: 10px;
+    width: 35px;
+    height: 35px;
+}
 

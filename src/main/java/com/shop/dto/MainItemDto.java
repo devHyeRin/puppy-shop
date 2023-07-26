@@ -1,6 +1,7 @@
 package com.shop.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,6 @@ public class MainItemDto {
     private Integer price;
 
     private ItemSellStatus itemSellStatus;
-
 
     @QueryProjection
     public MainItemDto(Long id, String itemNm, String itemDetail, String imgUrl, Integer price, ItemSellStatus itemSellStatus){

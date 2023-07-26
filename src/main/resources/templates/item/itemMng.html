@@ -40,6 +40,7 @@
             <thead>
             <tr>
                 <td>상품아이디</td>
+                <td>카테고리</td>
                 <td>상품명</td>
                 <td>상태</td>
                 <td>등록자</td>
@@ -49,6 +50,7 @@
             <tbody>
             <tr th:each="item, status : ${items.getContent()}">
                 <td th:text="${item.id}"></td>
+                <td th:text="${item.category}"></td>
                 <td>
                     <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}"></a>
                 </td>

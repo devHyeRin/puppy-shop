@@ -3,12 +3,38 @@ body{
     overflow: scroll;
     overflow-x: hidden;
     height: 100%;
+    min-width: 1200px;
 }
 
 .content-wrap{
     min-height: 100%;
     position: relative;
     padding-bottom: 60px;
+}
+
+ .repImg{
+     width: 280px;
+     height: 280px;
+     border-radius: 5%;
+     border: 1px solid #6258585F;
+ }
+.row{
+    width: 1350px;
+    margin: 35px auto 40px auto;
+    display: flex;
+}
+.main_item{
+    margin: 0 40px 40px 0;
+}
+.main_item_dtl{
+    margin-top: 10px;
+}
+.main_item_status{
+    margin-top: 5px;
+}
+.badge{
+    font-size: 16px;
+    letter-spacing: 3px;
 }
 
 

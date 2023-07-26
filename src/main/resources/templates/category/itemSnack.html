@@ -10,15 +10,21 @@
 <div layout:fragment="content">
   <div class="row">
     <th:block th:each="item, status: ${items.getContent()}">
-      <div class="col-md-4 margin">
-        <div class="card">
+      <div class="main_item">
+        <div class="product-container">
           <a th:href="'/item/' + ${item.id}" class="text-dark">
-            <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
-            <div class="card-body">
-              <h4 class="card-title">[[${item.itemNm}]]</h4>
-              <p class="card-text">[[${item.itemDetail}]]</p>
-              <h3 class="card-title text-danger">
-                [[${item.price}]]원</h3>
+            <img th:src="${item.imgUrl}" class="repImg" th:alt="${item.itemNm}" height="400">
+            <div class="main_item_dtl">
+              <h4 class="">[[${item.itemNm}]]</h4>
+              <strong class=""><span>[[${item.price}]]원</span></strong>
+            </div>
+            <div class="main_item_status">
+              <span th:if="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15" style="background: #cbc3c3;">
+                판매중
+              </span>
+              <span th:unless="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="badge btn-danger mgb-15">
+                품절
+              </span>
             </div>
           </a>
         </div>

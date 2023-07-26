@@ -128,6 +128,18 @@
         height: auto;
         width: 50%;
     }
+    .soldout-label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .soldout-img {
+        width: 170px; /* Set the width of the soldout image as per your requirement */
+        height: auto;
+    }
   </style>
 </th:block>
 
@@ -136,6 +148,9 @@
     <input type="hidden" id="itemId" th:value="${item.id}">
 
     <div class="d-flex">
+        <div th:if="${item.itemSellStatus != T(com.shop.constant.ItemSellStatus).SELL}" class="soldout-label">
+            <img src="/img/sold_out.png" alt="Sold Out" class="soldout-img">
+        </div>
         <div class="repImgDiv">
             <img th:src="${item.itemImgDtoList[0].imgUrl}" class="rounded repImg" th:alt="${item.itemNm}">
         </div>

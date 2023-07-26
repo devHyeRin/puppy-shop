@@ -42,19 +42,35 @@
 <!--스크립트 추가-->
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        $(document).ready(function(){
-           var err = [[${errorMessage}]];
-           if(err != null){
-               alert(err);
-           }
-        });
-
-        function execDaumPostcode(){
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    document.querySelector("#roadAddress").value =  data.address;
+        var main = {
+            init : function (){
+                var _this = this;
+                $('#btn-update').on('click', function (){
+                    _this.update();
+                });
+            },
+            update : function (){
+                var data = {
+                    password: $("#password").val(),
+                    name: $("#name").val(),
+                    phoneNumber: $("#phoneNumber").val(),
+                    address1: $("#roadAddress").val(),
+                    address2: $("#roadAddress1").val(),
                 }
-            }).open();
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/members/mypage',
+                    dataType: 'json',
+                    contentType:'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    alert('회원정보가 수정되었습니다.');
+                    window.location.href = '/';
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            }
         }
 
     </script>
@@ -65,7 +81,7 @@
     <div class="member_join_wrap">
         <div class="member_join_title">
             <h2>
-                회원가입
+                내 정보 수정
             </h2>
         </div>
         <div class="member_join_content">
@@ -73,12 +89,12 @@
                 <div class="info-box">
                     <div class="info-box-sec">
                         <label th:for="role" style="margin-right: 110px">권한</label>
-                        <input type="radio" name="role" value="USER"  checked>일반사용자
-                        <input type="radio" name="role" style="margin-left: 20px;" value="ADMIN">관리자
+                        <input type="radio" name="role" value="USER"  checked disabled readonly>일반사용자
+                        <input type="radio" name="role" style="margin-left: 20px;" value="ADMIN" disabled readonly>관리자
                     </div>
                     <div class="info-box-sec">
                         <label th:for="email" style="margin-right: 80px;">아이디</label>
-                        <input class="form-input" type="text" th:field="*{email}" placeholder="이메일 형식으로 입력해주세요.">
+                        <input class="form-input" type="text" th:field="*{email}" readonly>
                         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect date</p>
                     </div>
                     <div class="info-box-sec">
@@ -110,7 +126,7 @@
                     </div>
                     <div style="text-align: center">
                         <a href="/members/login" role="button" class="btn btn-outline-dark">취소</a>
-                        <button type="submit" class="btn btn-danger">회원가입</button>
+                        <button type="submit" class="btn btn-danger" id="btn-update">수정</button>
                     </div>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 </div>

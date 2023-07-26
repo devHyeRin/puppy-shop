@@ -1,5 +1,10 @@
 package com.shop.service;
 
+import com.shop.dto.ItemFormDto;
+import com.shop.dto.ItemImgDto;
+import com.shop.dto.MemberFormDto;
+import com.shop.entity.Item;
+import com.shop.entity.ItemImg;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,8 +12,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -43,4 +54,13 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
+
+//    @Transactional
+//    public Member updateMember(String email, MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
+//        Member member = memberRepository.findByEmail(email);
+//        member.updateMember(memberFormDto, passwordEncoder);
+//
+//        return member;
+//    }
+
 }

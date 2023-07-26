@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import com.shop.dto.ItemFormDto;
 import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
 import com.shop.service.MemberService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @Controller
@@ -23,6 +25,11 @@ public class MemberController {
     public String memberForm(Model model){
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
+    }
+    @GetMapping(value = "/mypage")
+    public String memberMypage(Model model){
+        model.addAttribute("memberFormDto", new MemberFormDto());
+        return "member/mypage";
     }
 
     @PostMapping(value = "/new")
@@ -49,14 +56,18 @@ public class MemberController {
     //로그인, 로그아웃 맵핑
     @GetMapping(value = "/login")
     public String loginMember(){
-        return "/member/memberLoginForm";
+        return "member/memberLoginForm";
     }
 
     @GetMapping(value = "/login/error")
     public String loginError(Model model){
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
-        return "/member/memberLoginForm";
+        return "member/memberLoginForm";
     }
+
+    /*멤버 수정*/
+
+
 
 }
 

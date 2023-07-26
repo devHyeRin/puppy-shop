@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 
+import com.shop.constant.ItemCategory;
 import com.shop.dto.ItemSearchDto;
 import com.shop.dto.MainItemDto;
 import com.shop.service.ItemService;
@@ -22,70 +23,70 @@ public class CategoryController {
     private final ItemService itemService;
 
     @GetMapping(value = "/food")
-    public String categoryFood(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        if(itemSearchDto.getSearchQuery() == null){
-            itemSearchDto.setSearchQuery("");
-        }
-        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+    public String categoryFood(Optional<Integer> page, Model model) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+        ItemSearchDto itemSearchDto = new ItemSearchDto();
+        itemSearchDto.setSearchCategory(ItemCategory.FOOD);
+        Page<MainItemDto> getItemCategoryPage = itemService.getCategoryItemPage(itemSearchDto, pageable);
 
-        model.addAttribute("items", items);
-        model.addAttribute("itemSearchDto", itemSearchDto);
-        model.addAttribute("maxPage", 5);
+        model.addAttribute("items", getItemCategoryPage);
+        model.addAttribute("itemSearchDto",itemSearchDto);
+        model.addAttribute("maxPage",5);
         return "category/itemFood";
     }
 
-    @GetMapping(value = "/snack")
-    public String categorySnack(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        if(itemSearchDto.getSearchQuery() == null){
-            itemSearchDto.setSearchQuery("");
-        }
-        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
 
-        model.addAttribute("items", items);
-        model.addAttribute("itemSearchDto", itemSearchDto);
-        model.addAttribute("maxPage", 5);
-        return "category/itemSnack";
-    }
-    @GetMapping(value = "/bath")
-    public String categoryBath(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        if(itemSearchDto.getSearchQuery() == null){
-            itemSearchDto.setSearchQuery("");
-        }
-        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
-
-        model.addAttribute("items", items);
-        model.addAttribute("itemSearchDto", itemSearchDto);
-        model.addAttribute("maxPage", 5);
-        return "category/itemBath";
-    }
-    @GetMapping(value = "/clothes")
-    public String categoryClothes(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        if(itemSearchDto.getSearchQuery() == null){
-            itemSearchDto.setSearchQuery("");
-        }
-        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
-
-        model.addAttribute("items", items);
-        model.addAttribute("itemSearchDto", itemSearchDto);
-        model.addAttribute("maxPage", 5);
-        return "category/itemClothes";
-    }
-    @GetMapping(value = "/stuff")
-    public String categoryStuff(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        if(itemSearchDto.getSearchQuery() == null){
-            itemSearchDto.setSearchQuery("");
-        }
-        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
-
-        model.addAttribute("items", items);
-        model.addAttribute("itemSearchDto", itemSearchDto);
-        model.addAttribute("maxPage", 5);
-        return "category/itemStuff";
-    }
+//    @GetMapping(value = "/snack")
+//    public String categorySnack(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
+//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+//        if(itemSearchDto.getSearchQuery() == null){
+//            itemSearchDto.setSearchQuery("");
+//        }
+//        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+//
+//        model.addAttribute("items", items);
+//        model.addAttribute("itemSearchDto", itemSearchDto);
+//        model.addAttribute("maxPage", 5);
+//        return "category/itemSnack";
+//    }
+//    @GetMapping(value = "/bath")
+//    public String categoryBath(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
+//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+//        if(itemSearchDto.getSearchQuery() == null){
+//            itemSearchDto.setSearchQuery("");
+//        }
+//        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+//
+//        model.addAttribute("items", items);
+//        model.addAttribute("itemSearchDto", itemSearchDto);
+//        model.addAttribute("maxPage", 5);
+//        return "category/itemBath";
+//    }
+//    @GetMapping(value = "/clothes")
+//    public String categoryClothes(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
+//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+//        if(itemSearchDto.getSearchQuery() == null){
+//            itemSearchDto.setSearchQuery("");
+//        }
+//        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+//
+//        model.addAttribute("items", items);
+//        model.addAttribute("itemSearchDto", itemSearchDto);
+//        model.addAttribute("maxPage", 5);
+//        return "category/itemClothes";
+//    }
+//    @GetMapping(value = "/stuff")
+//    public String categoryStuff(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
+//        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+//        if(itemSearchDto.getSearchQuery() == null){
+//            itemSearchDto.setSearchQuery("");
+//        }
+//        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+//
+//        model.addAttribute("items", items);
+//        model.addAttribute("itemSearchDto", itemSearchDto);
+//        model.addAttribute("maxPage", 5);
+//        return "category/itemStuff";
+//    }
 
 }

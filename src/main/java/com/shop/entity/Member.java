@@ -1,6 +1,7 @@
 package com.shop.entity;
 
 import com.shop.constant.Role;
+import com.shop.dto.ItemFormDto;
 import com.shop.dto.MemberFormDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,5 +46,13 @@ public class Member extends BaseEntity{
         member.setPhoneNumber(memberFormDto.getPhoneNumber());
         member.setRole(memberFormDto.getRole());
         return member;
+    }
+
+    public void updateMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
+        this.name = memberFormDto.getName();
+        this.password = memberFormDto.getPassword();
+        this.address1 = memberFormDto.getAddress1();
+        this.address2 = memberFormDto.getAddress2();
+        this.phoneNumber = memberFormDto.getPhoneNumber();
     }
 }

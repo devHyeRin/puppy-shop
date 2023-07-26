@@ -83,6 +83,13 @@ public class ItemService {
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
         return itemRepository.getAdminItemPage(itemSearchDto,pageable);
     }
+
+    /*카테고리 상품 조회*/
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getCategoryItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getCategoryItemPage(itemSearchDto, pageable);
+    }
+
     /*등록 상품 메인 표시*/
     @Transactional(readOnly = true)
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){

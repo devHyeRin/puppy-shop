@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<!--사용자 css 추가-->
+<th:block layout:fragment="css">
+
+</th:block>
+
+<div layout:fragment="content">
+  <div class="row">
+    <th:block th:each="item, status: ${items.getContent()}">
+      <div class="col-md-4 margin">
+        <div class="card">
+          <a th:href="'/item/' + ${item.id}" class="text-dark">
+            <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+            <div class="card-body">
+              <h4 class="card-title">[[${item.itemNm}]]</h4>
+              <p class="card-text">[[${item.itemDetail}]]</p>
+              <h3 class="card-title text-danger">
+                [[${item.price}]]원</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </th:block>
+  </div>
+</div>
+</html>

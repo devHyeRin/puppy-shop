@@ -54,7 +54,7 @@
                 </td>
                 <td th:text="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL} ? '판매중' : '품절'"></td>
                 <td th:text="${item.createdBy}"></td>
-                <td th:text="${item.regTime}"></td>
+                <td th:text="${item.createTime}"></td>
             </tr>
             </tbody>
         </table>
@@ -96,6 +96,14 @@
                 <option value="">판매상태(전체)</option>
                 <option value="SELL">판매</option>
                 <option value="SOLD_OUT">품절</option>
+            </select>
+            <select th:field="*{searchCategory}" class="form-control" style="width:auto;">
+                <option value="">카테고리(전체)</option>
+                <option value="FOOD">사료</option>
+                <option value="SNACK">간식</option>
+                <option value="BATH">목욕용품</option>
+                <option value="CLOTHES">옷</option>
+                <option value="STUFF">잡화</option>
             </select>
             <select th:field="*{searchBy}" class="form-control" style="width:auto;">
                 <option value="itemNm">상품명</option>

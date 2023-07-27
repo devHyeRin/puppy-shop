@@ -27,7 +27,7 @@ import java.util.Optional;
 public class ItemController {
 
     private final ItemService itemService;
-
+    /*상품등록*/
     @GetMapping(value = "/admin/item/new")
     public String itemForm(Model model){
         model.addAttribute("itemFormDto",new ItemFormDto());
@@ -99,5 +99,12 @@ public class ItemController {
         model.addAttribute("item", itemFormDto);
         return "item/itemDtl";
     }
+
+    /*공지사항*/
+    @GetMapping(value = "/admin/notice/save")
+    public String noticeSave(){
+        return "notice/noticeForm";
+    }
+
 }
 

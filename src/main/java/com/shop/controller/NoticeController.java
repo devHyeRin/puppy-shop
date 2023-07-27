@@ -89,7 +89,7 @@ public class NoticeController {
     }
 
     /*상품 조회*/
-    @GetMapping(value = {"/admin/notices", "/admin/notices/{page}"})
+    @GetMapping(value = {"/notices", "/notices/{page}"})
     public String noticeManage(NoticeSearchDto noticeSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
         Page<Notice> notices = noticeService.getAdminNoticePage(noticeSearchDto, pageable);

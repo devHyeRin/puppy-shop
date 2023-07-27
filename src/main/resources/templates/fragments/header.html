@@ -26,10 +26,10 @@
                             <a href="/admin/items">상품 관리</a>
                         </li>
                         <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                            <a href="/admin/post/new">공지사항 등록</a>
+                            <a href="/admin/notice/new">공지사항 등록</a>
                         </li>
-                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                            <a href="/admin/posts">공지사항 관리</a>
+                        <li class="top" sec:authorize="isAuthenticated()">
+                            <a href="/notices">공지사항</a>
                         </li>
                         <li class="top" sec:authorize="hasAnyAuthority('ROLE_USER')">
                             <a href="/orders">주문내역</a>

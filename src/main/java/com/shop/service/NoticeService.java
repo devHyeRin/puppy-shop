@@ -1,12 +1,17 @@
 package com.shop.service;
 
+import com.shop.dto.ItemSearchDto;
 import com.shop.dto.NoticeFormDto;
 import com.shop.dto.NoticeImgDto;
+import com.shop.dto.NoticeSearchDto;
+import com.shop.entity.Item;
 import com.shop.entity.Notice;
 import com.shop.entity.NoticeImg;
 import com.shop.repository.NoticeImgRepository;
 import com.shop.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,6 +70,12 @@ public class NoticeService {
             noticeImgService.updateNoticeImg(noticeImgIds.get(i), noticeImgFileList.get(i));
         }
         return notice.getId();
+    }
+
+    /*상품 데이터 조회*/
+    @Transactional(readOnly = true)
+    public Page<Notice> getAdminNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){
+        return noticeRepository.getAdminNoticePage(noticeSearchDto,pageable);
     }
 
 }

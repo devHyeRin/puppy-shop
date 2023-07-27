@@ -100,11 +100,6 @@ public class ItemController {
         return "item/itemDtl";
     }
 
-    /*공지사항*/
-    @GetMapping(value = "/admin/notice/save")
-    public String noticeSave(){
-        return "notice/noticeForm";
-    }
 
 }
 

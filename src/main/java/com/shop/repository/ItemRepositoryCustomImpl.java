@@ -110,7 +110,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         QueryResults<MainItemDto> results = queryFactory.select(new QMainItemDto(item.id, item.itemNm, item.itemDetail, itemImg.imgUrl, item.price, item.itemSellStatus))
                 .from(itemImg).join(itemImg.item, item)
                 .where(itemImg.repImgYn.eq("Y"))
-                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .where(searchCategoryEq(itemSearchDto.getSearchCategory()))
                 .orderBy(item.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()).fetchResults();

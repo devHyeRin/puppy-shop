@@ -19,18 +19,32 @@
                 </div>
                 <div style="float:right;">
                     <ul class="myInfo">
-                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                            <a href="/admin/item/new">상품 등록</a>
-                        </li>
-                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                            <a href="/admin/items">상품 관리</a>
-                        </li>
-                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                            <a href="/admin/notice/new">공지사항 등록</a>
-                        </li>
-                        <li class="top" sec:authorize="isAuthenticated()">
-                            <a href="/notices">공지사항</a>
-                        </li>
+<!--                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">-->
+<!--                            <a href="/admin/item/new">상품 등록</a>-->
+<!--                        </li>-->
+<!--                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">-->
+<!--                            <a href="/admin/items">상품 관리</a>-->
+<!--                        </li>-->
+<!--                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">-->
+<!--                            <a href="/admin/notice/new">공지사항 등록</a>-->
+<!--                        </li>-->
+<!--                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">-->
+<!--                            <a href="/admin/notices">공지사항 관리</a>-->
+<!--                        </li>-->
+<!--                        <li class="top" sec:authorize="hasAnyAuthority('ROLE_USER')">-->
+<!--                            <a href="/notices">공지사항</a>-->
+<!--                        </li>-->
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown link
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a class="dropdown-item" href="/admin/item/new">상품 등록</a></li>
+                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a class="dropdown-item" href="/admin/items">상품 관리</a></li>
+                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a class="dropdown-item" href="/admin/notice/new">공지사항 등록</a></li>
+                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a class="dropdown-item" href="/notices">공지사항 관리</a></li>
+                            </ul>
+                        </div>
                         <li class="top" sec:authorize="hasAnyAuthority('ROLE_USER')">
                             <a href="/orders">주문내역</a>
                         </li>

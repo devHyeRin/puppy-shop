@@ -38,7 +38,7 @@ public class NoticeController {
     }
     /*공지사항 등록 처리*/
     @PostMapping(value = "/admin/notice/new")
-    public String noticeNew(@Valid NoticeFormDto noticeFormDto, BindingResult bindingResult, Model model, @RequestParam("itemImgFile") List<MultipartFile> noticeImgFileList){
+    public String noticeNew(@Valid NoticeFormDto noticeFormDto, BindingResult bindingResult, Model model, @RequestParam("noticeImgFile") List<MultipartFile> noticeImgFileList){
         if(bindingResult.hasErrors()){
             return "notice/noticeForm";
         }
@@ -55,7 +55,7 @@ public class NoticeController {
         return "redirect:/";
     }
 
-    /*공지사항 수정 url*/
+    /*공지사항 수정 url -> ok*/
     @GetMapping(value = "/admin/notice/{noticeId}")
     public String noticeDtl(@PathVariable("noticeId")Long noticeId, Model model){
         try {
@@ -68,7 +68,7 @@ public class NoticeController {
         }
         return "notice/noticeForm";
     }
-    /*공지사항 수정 업데이트*/
+    /*공지사항 수정 업데이트 -> ok*/
     @PostMapping(value = "/admin/notice/{noticeId}")
     public String noticeUpdate(@Valid NoticeFormDto noticeFormDto, BindingResult bindingResult,
                                @RequestParam("noticeImgFile") List<MultipartFile> noticeImgFileList, Model model){
@@ -89,7 +89,7 @@ public class NoticeController {
     }
 
     /*상품 조회*/
-    @GetMapping(value = {"/notices", "/notices/{page}"})
+    @GetMapping(value = {"/admin/notices", "/admin/notices/{page}"})
     public String noticeManage(NoticeSearchDto noticeSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
         Page<Notice> notices = noticeService.getAdminNoticePage(noticeSearchDto, pageable);

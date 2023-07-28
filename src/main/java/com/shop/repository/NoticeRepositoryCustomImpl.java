@@ -3,14 +3,9 @@ package com.shop.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.shop.constant.ItemCategory;
 import com.shop.constant.NoticeCategory;
-import com.shop.dto.ItemSearchDto;
-import com.shop.dto.NoticeSearchDto;
-import com.shop.entity.Item;
-import com.shop.entity.Notice;
-import com.shop.entity.QItem;
-import com.shop.entity.QNotice;
+import com.shop.dto.*;
+import com.shop.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -64,6 +59,10 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
         return null;
     }
 
+    private BooleanExpression noticeTitleLike(String searchQuery){
+        return StringUtils.isEmpty(searchQuery) ? null : QNotice.notice.noticeTitle.like("%" + searchQuery + "%");
+    }
+
     @Override
     public Page<Notice> getAdminNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){
         QueryResults<Notice> results = queryFactory.selectFrom(QNotice.notice)
@@ -78,10 +77,40 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
-
-    private BooleanExpression noticeTitleLike(String searchQuery){
-        return StringUtils.isEmpty(searchQuery) ? null : QNotice.notice.noticeTitle.like("%" + searchQuery + "%");
+/**/
+//    @Override
+//    public Page<MainNoticeDto> getUserNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){
+//
+//        QNotice notice = QNotice.notice;
+//        QNoticeImg noticeImg = QNoticeImg.noticeImg;
+//
+//
+//        QueryResults<MainNoticeDto> results = queryFactory.select(new QMainNoticeDto(notice.id, notice.noticeTitle, notice.noticeContent, notice.noticeCategory, notice.createTime, notice.createdBy))
+//                .from(noticeImg).join(noticeImg.notice, notice)
+//                .where(searchCategoryEq(noticeSearchDto.getSearchCategory()))
+//                .where(noticeTitleLike(noticeSearchDto.getSearchQuery()))
+//                .orderBy(notice.id.desc())
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize()).fetchResults();
+//        List<MainNoticeDto> content = results.getResults();
+//        long total = results.getTotal();
+//        return new PageImpl<>(content, pageable, total);
+//    }
+    @Override
+    public Page<Notice> getUserNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){
+        QueryResults<Notice> results = queryFactory.selectFrom(QNotice.notice)
+                .where(regDtsAfter(noticeSearchDto.getSearchDateType()),
+                        searchCategoryEq(noticeSearchDto.getSearchCategory()),
+                        searchByLike(noticeSearchDto.getSearchBy(), noticeSearchDto.getSearchQuery()))
+                .orderBy(QNotice.notice.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        List<Notice> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
     }
+
 
 
 

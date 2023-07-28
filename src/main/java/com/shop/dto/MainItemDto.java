@@ -1,7 +1,6 @@
 package com.shop.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.shop.constant.ItemCategory;
 import com.shop.constant.ItemSellStatus;
 import lombok.Getter;
 import lombok.Setter;

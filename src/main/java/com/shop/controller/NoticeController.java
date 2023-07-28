@@ -1,9 +1,6 @@
 package com.shop.controller;
 
-import com.shop.dto.ItemFormDto;
-import com.shop.dto.ItemSearchDto;
-import com.shop.dto.NoticeFormDto;
-import com.shop.dto.NoticeSearchDto;
+import com.shop.dto.*;
 import com.shop.entity.Item;
 import com.shop.entity.Notice;
 import com.shop.service.NoticeService;
@@ -99,10 +96,29 @@ public class NoticeController {
         return "notice/noticeMng";
     }
 
-    @GetMapping(value = "/notice/{noticeId}")
-    public String noticeDtl(Model model, @PathVariable("noticeId")Long noticeId){
-        NoticeFormDto noticeFormDto = noticeService.getNoticeDtl(noticeId);
+
+    /*사용자 공지사항 조회*/
+    @GetMapping(value = {"/notices", "/notices/{page}"})
+    public String noticeUser(NoticeSearchDto noticeSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<Notice> notices = noticeService.getUserNoticePage(noticeSearchDto, pageable);
+        model.addAttribute("notices", notices);
+        model.addAttribute("noticeSearchDto", noticeSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "notice/noticeUser";
+    }
+
+//    @GetMapping(value = "/notices/notice/{noticeId}")
+//    public String noticeUserDtl(Model model, @PathVariable("noticeId")Long noticeId){
+//        NoticeFormDto noticeFormDto = noticeService.getNoticeDtl(noticeId);
+//        model.addAttribute("notice", noticeFormDto);
+//        return "notice/noticeDtl";
+//    }
+    @GetMapping(value = "/notices/notice/{noticeId}")
+    public String noticeUserDtl(Model model, @PathVariable("noticeId") Long noticeId) {
+        NoticeFormDto noticeFormDto = noticeService.getUserNoticeDtl(noticeId);
         model.addAttribute("notice", noticeFormDto);
         return "notice/noticeDtl";
     }
+
 }

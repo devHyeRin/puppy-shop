@@ -21,14 +21,14 @@
               <h4 class="">[[${item.itemNm}]]</h4>
               <strong class=""><span>[[${item.price}]]원</span></strong>
             </div>
-            <div class="main_item_status">
-              <span th:if="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15" style="background: #cbc3c3;">
-                판매중
-              </span>
-              <span th:unless="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="badge btn-danger mgb-15">
-                품절
-              </span>
-            </div>
+<!--            <div class="main_item_status">-->
+<!--              <span th:if="${item != null and item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15" style="background: #cbc3c3;">-->
+<!--                  판매중-->
+<!--              </span>-->
+<!--              <span th:if="${item == null or item.itemSellStatus != T(com.shop.constant.ItemSellStatus).SELL}" class="badge btn-danger mgb-15">-->
+<!--                  품절-->
+<!--              </span>-->
+<!--            </div>-->
           </a>
         </div>
       </div>

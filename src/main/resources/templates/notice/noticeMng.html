@@ -38,32 +38,26 @@
     <form th:action="@{'/admin/notices/'+${notices.number}}" role="form" method="get" th:object="${notices}">
         <table class="table">
             <thead>
-            <tr>
-                <td>No.</td>
-                <td>분류</td>
-                <td>제목</td>
-                <td>등록자</td>
-                <td>등록일</td>
-            </tr>
+                <tr>
+                    <td>No.</td>
+                    <td>분류</td>
+                    <td>제목</td>
+                    <td>등록자</td>
+                    <td>등록일</td>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="notice, status : ${notices.getContent()}">
-                <td th:text="${notice.id}"></td>
-                <td th:text="${notice.noticeCategory}"></td>
-                <td>
-                    <a th:href="'/admin/notice/'+${notice.id}" th:text="${notice.noticeTitle}"></a>
-                </td>
-                <td th:text="${notice.createdBy}"></td>
-                <td th:text="${notice.createTime}"></td>
-            </tr>
+                <tr th:each="notice, status : ${notices.getContent()}">
+                    <td th:text="${notice.id}"></td>
+                    <td th:text="${notice.noticeCategory}"></td>
+                    <td>
+                        <a th:href="'/admin/notice/'+${notice.id}" th:text="${notice.noticeTitle}"></a>
+                    </td>
+                    <td th:text="${notice.createdBy}"></td>
+                    <td th:text="${notice.createTime}"></td>
+                </tr>
             </tbody>
         </table>
-
-        <a th:text="${notices.number}">
-        </a>
-        <a th:text="${notices.totalPages}"></a>
-
-        <a th:text="${(notices.number/maxPage)*maxPage +1}"></a>
 
         <div th:with="start=${(notices.number/maxPage)*maxPage +1},
         end=(${(notices.totalPages == 0) ? 1 : (start + (maxPage-1) < notices.totalPages ? start + (maxPage - 1) : notices.totalPages)})">
@@ -93,12 +87,11 @@
                 <option value="6m">6개월</option>
             </select>
             <select th:field="*{searchCategory}" class="form-control" style="width:auto;">
-                <option value="">카테고리(전체)</option>
                 <option value="NOTICE">공지사항</option>
                 <option value="EVENT">이벤트</option>
             </select>
             <select th:field="*{searchBy}" class="form-control" style="width:auto;">
-                <option value="noticeTitle">제목</option>
+                <option value="noticeTitle">상품명</option>
                 <option value="createdBy">등록자</option>
             </select>
             <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">

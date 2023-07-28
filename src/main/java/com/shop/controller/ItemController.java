@@ -58,8 +58,8 @@ public class ItemController {
             ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
             model.addAttribute("itemFormDto", itemFormDto);
         }catch (EntityNotFoundException e){
-            model.addAttribute("errorMessage", "존재하지 않는 상품입니다.");
-            model.addAttribute("itemFormDto", new ItemFormDto());
+            model.addAttribute("errorMessage","존재하지 않는 상품입니다.");
+            model.addAttribute("itemFormDto",new ItemFormDto());
             return "item/itemForm";
         }
         return "item/itemForm";
@@ -84,19 +84,20 @@ public class ItemController {
     }
     /*상품 조회*/
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
-    public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
+    public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page,
+                             Model model){
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
         Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
         model.addAttribute("items", items);
-        model.addAttribute("itemSearchDto", itemSearchDto);
-        model.addAttribute("maxPage", 5);
+        model.addAttribute("itemSearchDto",itemSearchDto);
+        model.addAttribute("maxPage",5);
         return "item/itemMng";
     }
 
     @GetMapping(value = "/item/{itemId}")
     public String itemDtl(Model model, @PathVariable("itemId")Long itemId){
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-        model.addAttribute("item", itemFormDto);
+        model.addAttribute("item",itemFormDto);
         return "item/itemDtl";
     }
 

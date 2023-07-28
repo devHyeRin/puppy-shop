@@ -61,7 +61,7 @@ public class ItemService {
         }
 
         Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
-        ItemFormDto itemFormDto = ItemFormDto.of(item);
+        ItemFormDto itemFormDto = ItemFormDto.of(item);    // entity->dto 바로 전달
         itemFormDto.setItemImgDtoList(itemImgDtoList);
         return itemFormDto;
     }

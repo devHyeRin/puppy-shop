@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -28,6 +29,7 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    /*회원 저장*/
     public Member saveMember(Member member){
         validateDuplicateMember(member);
         return memberRepository.save(member);
@@ -39,6 +41,12 @@ public class MemberService implements UserDetailsService {
 
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
+    }
+
+    /*아이디 중복확인*/
+    public boolean isUsernameAvailable(String email) {
+        Member findMember = memberRepository.findByEmail(email);
+        return findMember == null;
     }
 
     @Override
@@ -54,6 +62,5 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
-
 
 }

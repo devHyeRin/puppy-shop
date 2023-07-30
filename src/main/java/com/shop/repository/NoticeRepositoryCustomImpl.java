@@ -22,7 +22,7 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
     public NoticeRepositoryCustomImpl(EntityManager em){
         this.queryFactory = new JPAQueryFactory(em);
     }
-    /*기간*/
+    /*기간 조회*/
     private BooleanExpression regDtsAfter(String searchDateType){  //all, 1d, 1w, 1m 6m
         LocalDateTime dateTime = LocalDateTime.now();
 
@@ -44,11 +44,11 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
         return QNotice.notice.createTime.after(dateTime);
     }
     /*카테고리*/
-    private BooleanExpression searchCategoryEq(NoticeCategory searchCategory){
-        return searchCategory == null ? null : QNotice.notice.noticeCategory.eq(searchCategory);
-    }
+//    private BooleanExpression searchCategoryEq(NoticeCategory searchCategory){
+//        return searchCategory == null ? null : QNotice.notice.noticeCategory.eq(searchCategory);
+//    }
 
-    /*작성자, 작성일자*/
+    /*작성자, 작성일자 조회*/
     private BooleanExpression searchByLike(String searchBy, String searchQuery){
         if(StringUtils.equals("noticeTitle", searchBy)){
             return QNotice.notice.noticeTitle.like("%" + searchQuery + "%");
@@ -59,6 +59,7 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
         return null;
     }
 
+    /*게시판 제목 조회*/
     private BooleanExpression noticeTitleLike(String searchQuery){
         return StringUtils.isEmpty(searchQuery) ? null : QNotice.notice.noticeTitle.like("%" + searchQuery + "%");
     }
@@ -67,7 +68,6 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
     public Page<Notice> getAdminNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){
         QueryResults<Notice> results = queryFactory.selectFrom(QNotice.notice)
                 .where(regDtsAfter(noticeSearchDto.getSearchDateType()),
-                        searchCategoryEq(noticeSearchDto.getSearchCategory()),
                         searchByLike(noticeSearchDto.getSearchBy(), noticeSearchDto.getSearchQuery()))
                 .orderBy(QNotice.notice.id.desc())
                 .offset(pageable.getOffset())
@@ -96,11 +96,11 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
 //        long total = results.getTotal();
 //        return new PageImpl<>(content, pageable, total);
 //    }
+    /*사용자 페이지 조회*/
     @Override
     public Page<Notice> getUserNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){
         QueryResults<Notice> results = queryFactory.selectFrom(QNotice.notice)
                 .where(regDtsAfter(noticeSearchDto.getSearchDateType()),
-                        searchCategoryEq(noticeSearchDto.getSearchCategory()),
                         searchByLike(noticeSearchDto.getSearchBy(), noticeSearchDto.getSearchQuery()))
                 .orderBy(QNotice.notice.id.desc())
                 .offset(pageable.getOffset())
@@ -110,9 +110,5 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
-
-
-
-
 
 }

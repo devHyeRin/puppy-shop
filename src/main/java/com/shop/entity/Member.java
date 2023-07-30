@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Member extends BaseEntity{
     @Id
     @Column(name = "member_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -46,13 +46,5 @@ public class Member extends BaseEntity{
         member.setPhoneNumber(memberFormDto.getPhoneNumber());
         member.setRole(memberFormDto.getRole());
         return member;
-    }
-
-    public void updateMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
-        this.name = memberFormDto.getName();
-        this.password = memberFormDto.getPassword();
-        this.address1 = memberFormDto.getAddress1();
-        this.address2 = memberFormDto.getAddress2();
-        this.phoneNumber = memberFormDto.getPhoneNumber();
     }
 }

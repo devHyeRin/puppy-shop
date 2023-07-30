@@ -24,9 +24,6 @@ public class NoticeFormDto {
     @NotNull(message = "내용을 입력해주세요.")
     private String noticeContent;
 
-    @NotNull(message = "카테고리를 선택해주세요.")
-    private NoticeCategory noticeCategory;
-
     private List<NoticeImgDto> noticeImgDtoList = new ArrayList<>();
 
     private List<Long> noticeImgIds = new ArrayList<>();

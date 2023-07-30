@@ -13,7 +13,7 @@
       }
       bindDomEvent();
 
-      $("#newpBtn").on("click",function(e){
+      $("#newBtn").on("click",function(e){
         alert("상품이 등록되었습니다.");
       });
       $("#updateBtn").on("click",function(e){
@@ -44,20 +44,7 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
   <style>
-    .itemNew_wrap{
-      width: 70%;
-      min-width: 800px;
-      margin: 35px auto 40px auto;
-    }
-    .itemNew_tableWrap{
-      padding: 50px;
-    }
 
-    .itemNew_tableContent {
-      width: 100%;
-      border: 1px solid #bbb5b5;
-      border-collapse: collapse;
-    }
     th, td {
       border: 1px solid #d3cccc;
       padding: 10px;
@@ -99,14 +86,22 @@
 </th:block>
 
 <div layout:fragment="content">
-  <div class="itemNew_wrap">
+  <div class="New_wrap">
   <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
-    <p style="letter-spacing: 10px"><a href="/">홈</a>><span>상품등록</span></p>
-    <p class="h2"><span style="border-bottom: 5px solid pink">상품 등록 <span class="material-symbols-outlined" style="padding: 5px;">post_add</span></span></p>
+    <div style="display: flex; justify-content: space-between">
+    <p class="h2"><span style="border-bottom: 5px solid pink">상품 등록/수정 <span class="material-symbols-outlined" style="padding: 5px;">post_add</span></span></p>
+    <ul style="margin: 0;">
+      <li><a href="/"><span class="material-symbols-outlined">home</span></a></li>
+      <li><span class="material-symbols-outlined">arrow_forward_ios</span></li>
+      <li>상품관리</li>
+    </ul>
+    </div>
     <hr>
+
     <input type="hidden" th:field="*{id}">
-    <div class="itemNew_tableWrap">
-    <table class="itemNew_tableContent">
+
+    <div class="New_tableWrap">
+    <table class="New_tableContent">
       <tr>
         <th><span>판매상태<sup style="font-size: 20px; color: red">*</sup></span></th>
         <td>
@@ -196,7 +191,7 @@
 
     <div th:if="${#strings.isEmpty(itemFormDto.id)}" style="text-align : center">
       <a href="/" role="button" class="btn btn-outline-dark">취소</a>
-      <button th:formaction="@{/admin/item/new}" type="submit" class="btn btn-primary" id="newpBtn">상품 등록하기</button>
+      <button th:formaction="@{/admin/item/new}" type="submit" class="btn btn-primary" id="newBtn">상품 등록하기</button>
     </div>
     <div th:unless="${#strings.isEmpty(itemFormDto.id)}" style="text-align : center">
       <a href="/admin/items" role="button" class="btn btn-outline-dark">취소</a>

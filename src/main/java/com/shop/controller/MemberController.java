@@ -5,6 +5,7 @@ import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
 import com.shop.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/members")
@@ -21,17 +25,14 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
+    /*회원가입 페이지 이동*/
     @GetMapping(value = "/new")
     public String memberForm(Model model){
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "member/memberForm";
     }
-    @GetMapping(value = "/mypage")
-    public String memberMypage(Model model){
-        model.addAttribute("memberFormDto", new MemberFormDto());
-        return "member/mypage";
-    }
 
+    /*회원가입 정보 저장*/
     @PostMapping(value = "/new")
     public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
@@ -53,7 +54,20 @@ public class MemberController {
         return "redirect:/";
     }
 
-    //로그인, 로그아웃 맵핑
+    /*회원가입 아이디 중복체크*/
+    @GetMapping("/checkUsername")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkUsername(@RequestParam("username") String username) {
+        boolean isUsernameAvailable = memberService.isUsernameAvailable(username);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("result", isUsernameAvailable);
+
+        return ResponseEntity.ok(response);
+    }
+
+
+    /*로그인, 로그아웃 맵핑*/
     @GetMapping(value = "/login")
     public String loginMember(){
         return "member/memberLoginForm";
@@ -65,9 +79,14 @@ public class MemberController {
         return "member/memberLoginForm";
     }
 
-    /*멤버 수정*/
-
-
+    /*내정보수정*/
+    @GetMapping(value = "/mypage")
+    public String updateMember(Model model){
+        model.addAttribute("memberFormDto", new MemberFormDto());
+        return "member/mypage";
+    }
 
 }
+
+
 

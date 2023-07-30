@@ -1,6 +1,7 @@
 package com.shop.service;
 
 import com.shop.dto.*;
+import com.shop.entity.ItemImg;
 import com.shop.entity.Notice;
 import com.shop.entity.NoticeImg;
 import com.shop.repository.NoticeImgRepository;
@@ -81,9 +82,20 @@ public class NoticeService {
         return noticeRepository.getUserNoticePage(noticeSearchDto, pageable);
     }
 
+    /*공지사항 각각 조회 (이미지도 조회)*/
     @Transactional(readOnly = true)
     public NoticeFormDto getUserNoticeDtl(Long noticeId) {
+        List<NoticeImg> noticeImgList = noticeImgRepository.findByNoticeIdOrderByIdAsc(noticeId);
+
+        List<NoticeImgDto> noticeImgDtoList = new ArrayList<>();
+
+        for(NoticeImg noticeImg : noticeImgList){
+            NoticeImgDto noticeImgDto = NoticeImgDto.of(noticeImg);
+            noticeImgDtoList.add(noticeImgDto);
+        }
         Notice notice = noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new);
-        return NoticeFormDto.of(notice);
+        NoticeFormDto noticeFormDto = NoticeFormDto.of(notice);
+        noticeFormDto.setNoticeImgDtoList(noticeImgDtoList);
+        return noticeFormDto;
     }
 }

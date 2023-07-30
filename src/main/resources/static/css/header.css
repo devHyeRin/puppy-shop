@@ -90,6 +90,5 @@ input::placeholder{
 
 select{
     border: none;
-    width: 140px;
-    text-align: center;
+    width: 145px;
 }

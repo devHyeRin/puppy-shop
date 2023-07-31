@@ -25,7 +25,9 @@
       text-decoration: none;
     }
     .center{
-      text-align: center;
+      text-align: left;
+      width: 1300px;
+      margin: 0 auto;
     }
     .repImg{
       width: 280px;
@@ -34,8 +36,8 @@
       border: 1px solid #6258585F;
     }
     .row{
-      width: 1350px;
-      margin: 35px auto 40px auto;
+      width: 1300px;
+      margin: 0 auto;
 
     }
     .main_item{
@@ -59,7 +61,7 @@
 <div layout:fragment="content">
   <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active item">
+      <div th:if="${#strings.isEmpty(itemSearchDto.searchQuery)}" class="carousel-item active item">
         <img src="/img/banner2.jpg" class="d-block w-100 banner" alt="First slide">
       </div>
     </div>
@@ -68,6 +70,9 @@
   <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
   <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
     <p class="h3" th:inline="text"><strong style="color: #d27878">'[[${itemSearchDto.searchQuery}]]'</strong>에 대한 검색결과</p>
+  </div>
+  <div th:unless="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+    <p class="h3" th:inline="text"><strong style="color: #d27878">Today 인기 상품 !</strong></p>
   </div>
 
   <div class="row">
@@ -81,15 +86,14 @@
               <hr>
               <strong class=""><span>[[${item.price}]]원</span></strong>
             </div>
-            <!--오류-->
-<!--            <div class="main_item_status">-->
-<!--              <span th:if="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15" style="background: #cbc3c3;">-->
-<!--                  판매중-->
-<!--              </span>-->
-<!--              <span th:unless="${item.itemSellStatus == T(com.shop.constant.ItemSellStatus).SELL}" class="badge btn-danger mgb-15">-->
-<!--                  품절-->
-<!--              </span>-->
-<!--            </div>-->
+            <div class="main_item_status">
+                <span th:if="${item.itemSellStatus.isSell()}" class="badge badge-primary mgb-15" style="background: #cbc3c3;">
+                    판매중
+                </span>
+                <span th:unless="${item.itemSellStatus.isSell()}" class="badge btn-danger mgb-15">
+                    품절
+                </span>
+            </div>
           </a>
         </div>
       </div>

@@ -93,13 +93,12 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         QueryResults<MainItemDto> results = queryFactory.select(new QMainItemDto(item.id, item.itemNm,
                         item.itemDetail,itemImg.imgUrl,item.price, item.itemSellStatus))
                 // join 내부조인 .repImgYn.eq("Y") 대표이미지만 가져온다.
-                .from(itemImg).join(itemImg.item, item)
-                .where(itemImg.repImgYn.eq("Y"))
+                .from(itemImg).join(itemImg.item, item).where(itemImg.repImgYn.eq("Y"))
                 .where(itemNmLike(itemSearchDto.getSearchQuery()))
                 .orderBy(item.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
         List<MainItemDto> content = results.getResults();
         long total = results.getTotal();
-        return new PageImpl<>(content, pageable,total);
+        return new PageImpl<>(content, pageable, total);
     }
 
     @Override

@@ -18,6 +18,9 @@ import java.util.List;
 public class NoticeFormDto {
     private Long id;
 
+    @NotBlank(message = "작성자를 입력해주세요.")
+    private String author;
+
     @NotBlank(message = "제목을 입력해주세요.")
     private String noticeTitle;
 

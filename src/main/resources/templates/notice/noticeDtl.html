@@ -17,7 +17,7 @@
 <div layout:fragment="content">
   <div class="mng_wrap">
   <div style="display: flex; justify-content: space-between">
-    <p class="h2"><span style="border-bottom: 5px solid pink">공지사항</span></p>
+    <p class="h2"><span style="border-bottom: 5px solid pink">공지사항<span class="material-symbols-outlined">notifications_active</span></span></p>
     <ul style="margin: 0;">
       <li><a href="/"><span class="material-symbols-outlined">home</span></a></li>
       <li><span class="material-symbols-outlined">arrow_forward_ios</span></li>
@@ -27,7 +27,7 @@
   <hr>
 
    <div class="card-title">
-     <h5 th:text="${notice.noticeTitle}" style="padding: 16px;"></h5>
+       <h5 th:text="${notice.noticeTitle}" style="padding: 16px;"></h5>
    </div>
     <div class="card-text">
       <p th:text="${notice.noticeContent}" style="padding: 16px;"></p>

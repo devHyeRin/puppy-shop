@@ -66,6 +66,7 @@
       <tr>
         <th>NO.</th>
         <th>제목</th>
+        <th>작성자</th>
         <th>등록 날짜</th>
       </tr>
       </thead>
@@ -75,7 +76,8 @@
         <td>
           <a th:href="'/notices/notice/'+${notice.id}" th:text="${notice.noticeTitle}"></a>
         </td>
-        <td th:text="${notice.createTime}"></td>
+        <td th:text="${notice.author}"></td>
+        <td th:text="${#temporals.format(notice.createTime, 'yyyy-MM-dd HH:mm')}"></td>
       </tr>
       </tbody>
     </table>
@@ -85,7 +87,7 @@
       <ul class="pagination justify-content-center">
         <li class="page-item" th:classappend="${notices.first}?'disabled'">
           <a th:onclick="'javascript:page('+${notices.number - 1} + ')'" aria-label='Previous' class="page-link">
-            <span aria-hidden="true"> <</span>
+            <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
         <li class="page-item" th:each="page: ${#numbers.sequence(start,end)}" th:classappend="${notices.number eq page-1}?'active':''">
@@ -93,7 +95,7 @@
         </li>
         <li class="page-item" th:classappend="${notices.last}?'disabled'">
           <a th:onclick="'javascript:page(' + ${notices.number + 1} + ')'" aria-label="Next" class="page-link">
-            <span aria-hidden="true"> ></span>
+            <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
       </ul>

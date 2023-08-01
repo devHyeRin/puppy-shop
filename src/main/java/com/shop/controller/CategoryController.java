@@ -87,4 +87,18 @@ public class CategoryController {
         return "category/itemStuff";
     }
 
+    /*배변용품 카테고리 조회*/
+    @GetMapping(value = "/bowel")
+    public String categoryBowel(Optional<Integer> page, Model model){
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 8);
+        ItemSearchDto itemSearchDto = new ItemSearchDto();
+        itemSearchDto.setSearchCategory(ItemCategory.BOWEL);
+        Page<MainItemDto> getItemCategoryPage = itemService.getCategoryItemPage(itemSearchDto, pageable);
+
+        model.addAttribute("items", getItemCategoryPage);
+        model.addAttribute("itemSearchDto",itemSearchDto);
+        model.addAttribute("maxPage",5);
+        return "category/itemBowel";
+    }
+
 }

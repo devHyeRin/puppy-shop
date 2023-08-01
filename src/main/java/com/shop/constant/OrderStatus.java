@@ -1,5 +1,14 @@
 package com.shop.constant;
 
 public enum OrderStatus {
-    ORDER, CANCEL
+    ORDER, CANCEL;
+
+    public boolean isOrder(){
+        return this == ORDER;
+    }
+
+    public boolean isCancelled(){
+        return this == CANCEL;
+    }
+
 }

@@ -22,7 +22,7 @@ public class MainController {
     /*메인 상품 등록 화면*/
     @GetMapping(value = "/")
     public String main(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 8);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
         if(itemSearchDto.getSearchQuery() == null)
         {
             itemSearchDto.setSearchQuery("");

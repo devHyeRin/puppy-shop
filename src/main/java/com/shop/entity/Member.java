@@ -47,4 +47,13 @@ public class Member extends BaseEntity{
         member.setRole(memberFormDto.getRole());
         return member;
     }
+
+    public void updateMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncode){
+        this.name = memberFormDto.getName();
+        this.password =passwordEncode.encode(memberFormDto.getPassword());
+        this.address1 = memberFormDto.getAddress1();
+        this.address2 = memberFormDto.getAddress2();
+        this.phoneNumber = memberFormDto.getPhoneNumber();
+    }
+
 }

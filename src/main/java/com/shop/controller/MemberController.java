@@ -1,9 +1,9 @@
 package com.shop.controller;
 
-import com.shop.dto.ItemFormDto;
 import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
 import com.shop.service.MemberService;
+import com.shop.service.MemberUpdateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +24,7 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final MemberUpdateService memberUpdateService;
 
     /*회원가입 페이지 이동*/
     @GetMapping(value = "/new")
@@ -51,7 +52,7 @@ public class MemberController {
             return "member/memberForm";
         }
 
-        return "redirect:/";
+        return "redirect:/members/login";
     }
 
     /*회원가입 아이디 중복체크*/
@@ -79,12 +80,41 @@ public class MemberController {
         return "member/memberLoginForm";
     }
 
-    /*내정보수정*/
+
+    /*내 정보 수정*/
     @GetMapping(value = "/mypage")
-    public String updateMember(Model model){
-        model.addAttribute("memberFormDto", new MemberFormDto());
+    public String mypageForm(Model model, Principal principal){
+        String email = principal.getName();
+        try {
+            MemberFormDto memberFormDto = memberService.getMemberDtlByEmail(email);
+            model.addAttribute("memberFormDto", memberFormDto);
+        }catch(EntityNotFoundException e){
+            model.addAttribute("errorMessage", "존재하지 않는 회원입니다.");
+            model.addAttribute("memberFormDto", new MemberFormDto());
+            return "member/mypage";
+        }
         return "member/mypage";
     }
+
+    /*내정보 수정 저장*/
+    @PostMapping(value = "/mypage/{memberId}")
+    public String memberUpdate(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "member/mypage";
+        }
+        try {
+            memberUpdateService.updateMember(memberFormDto);
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage",  e.getMessage());
+            return "member/mypage";
+        }
+        return "redirect:/";
+    }
+
+
+
+
+
 
 }
 

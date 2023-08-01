@@ -44,7 +44,6 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
   <style>
-
     th, td {
       border: 1px solid #d3cccc;
       padding: 10px;
@@ -121,8 +120,9 @@
               <option value="FOOD">사료</option>
               <option value="SNACK">간식</option>
               <option value="BATH">목욕용품</option>
+              <option value="BOWEL">위생/배변</option>
               <option value="CLOTHES">장난감/옷</option>
-              <option value="STUFF">잡화</option>
+              <option value="STUFF">굿즈</option>
             </select>
           </div>
         </td>
@@ -191,7 +191,7 @@
 
     <div th:if="${#strings.isEmpty(itemFormDto.id)}" style="text-align : center">
       <a href="/" role="button" class="btn btn-outline-dark">취소</a>
-      <button th:formaction="@{/admin/item/new}" type="submit" class="btn btn-primary" id="newBtn">상품 등록하기</button>
+      <button th:formaction="@{/admin/item/new}" type="submit" class="btn" id="newBtn" style="background: #fd7996; color: #fff">상품 등록하기</button>
     </div>
     <div th:unless="${#strings.isEmpty(itemFormDto.id)}" style="text-align : center">
       <a href="/admin/items" role="button" class="btn btn-outline-dark">취소</a>

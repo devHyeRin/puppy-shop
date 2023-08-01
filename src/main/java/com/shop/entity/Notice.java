@@ -18,6 +18,9 @@ public class Notice extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String author;
+
     @Column(nullable = false, length = 50)
     private String noticeTitle;
 
@@ -29,5 +32,6 @@ public class Notice extends BaseEntity{
     public void updateNotice(NoticeFormDto noticeFormDto){
         this.noticeTitle = noticeFormDto.getNoticeTitle();
         this.noticeContent = noticeFormDto.getNoticeContent();
+        this.author = noticeFormDto.getAuthor();
     }
 }

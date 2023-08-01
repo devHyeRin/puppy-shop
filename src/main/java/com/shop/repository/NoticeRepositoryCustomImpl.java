@@ -43,10 +43,6 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
         }
         return QNotice.notice.createTime.after(dateTime);
     }
-    /*카테고리*/
-//    private BooleanExpression searchCategoryEq(NoticeCategory searchCategory){
-//        return searchCategory == null ? null : QNotice.notice.noticeCategory.eq(searchCategory);
-//    }
 
     /*작성자, 작성일자 조회*/
     private BooleanExpression searchByLike(String searchBy, String searchQuery){
@@ -77,25 +73,7 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom{
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
-/**/
-//    @Override
-//    public Page<MainNoticeDto> getUserNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){
-//
-//        QNotice notice = QNotice.notice;
-//        QNoticeImg noticeImg = QNoticeImg.noticeImg;
-//
-//
-//        QueryResults<MainNoticeDto> results = queryFactory.select(new QMainNoticeDto(notice.id, notice.noticeTitle, notice.noticeContent, notice.noticeCategory, notice.createTime, notice.createdBy))
-//                .from(noticeImg).join(noticeImg.notice, notice)
-//                .where(searchCategoryEq(noticeSearchDto.getSearchCategory()))
-//                .where(noticeTitleLike(noticeSearchDto.getSearchQuery()))
-//                .orderBy(notice.id.desc())
-//                .offset(pageable.getOffset())
-//                .limit(pageable.getPageSize()).fetchResults();
-//        List<MainNoticeDto> content = results.getResults();
-//        long total = results.getTotal();
-//        return new PageImpl<>(content, pageable, total);
-//    }
+
     /*사용자 페이지 조회*/
     @Override
     public Page<Notice> getUserNoticePage(NoticeSearchDto noticeSearchDto, Pageable pageable){

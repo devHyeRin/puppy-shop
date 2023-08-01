@@ -8,6 +8,7 @@ import com.shop.entity.ItemImg;
 import com.shop.entity.Member;
 import com.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.metamodel.model.domain.internal.MapMember;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -62,5 +63,17 @@ public class MemberService implements UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
+    
+    /*회원정보 수정*/
+    @Transactional(readOnly = true)
+    public MemberFormDto getMemberDtlByEmail(String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            throw new EntityNotFoundException("존재하지 않는 회원입니다.");
+        }
+        return MemberFormDto.of(member);
+    }
+
+
 
 }

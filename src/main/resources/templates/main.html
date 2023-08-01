@@ -6,10 +6,7 @@
 <th:block layout:fragment="css">
   <style>
     .carousel-inner > .item {
-      height: 350px;
-    }
-    .margin{
-      margin-bottom: 30px;
+      height: 305px;
     }
     .banner{
       position: absolute;
@@ -18,44 +15,32 @@
       width: 100%;
       height: 280px;
     }
-    .card-text{
-      text-overflow: ellipsis;
-    }
     a:hover{
       text-decoration: none;
     }
     .center{
       text-align: left;
-      width: 1300px;
+      width: 1340px;
       margin: 0 auto;
     }
-    .repImg{
-      width: 280px;
-      height: 280px;
-      border-radius: 5%;
-      border: 1px solid #6258585F;
-    }
-    .row{
-      width: 1300px;
-      margin: 0 auto;
 
-    }
-    .main_item{
-      margin: 0 40px 40px 0;
-      display: flex;
-    }
-    .main_item_dtl{
-      margin-top: 10px;
-    }
-    .main_item_status{
-      margin-top: 5px;
-    }
-    .badge{
-      font-size: 16px;
-      letter-spacing: 3px;
-
-    }
   </style>
+</th:block>
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    function formatPriceWithCommas(price) {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    window.onload = function () {
+      const priceElements = document.querySelectorAll(".main_item_dtl span");
+      priceElements.forEach(function (element) {
+        const price = parseInt(element.textContent.replace(/[^\d]/g, ""));
+        const formattedPrice = formatPriceWithCommas(price);
+        element.textContent = formattedPrice + "원";
+      });
+    };
+  </script>
 </th:block>
 
 <div layout:fragment="content">
@@ -69,10 +54,10 @@
 
   <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
   <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-    <p class="h3" th:inline="text"><strong style="color: #d27878">'[[${itemSearchDto.searchQuery}]]'</strong>에 대한 검색결과</p>
+    <p class="h4" th:inline="text"><strong style="color: #d27878">'[[${itemSearchDto.searchQuery}]]'</strong>에 대한 검색결과</p>
   </div>
   <div th:unless="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-    <p class="h3" th:inline="text"><strong style="color: #d27878">Today 인기 상품 !</strong></p>
+    <p class="h4" th:inline="text" style="margin-bottom: 20px; font-family: 'Barlow', sans-serif;"><strong style="color: #d27878">Daily Best<span class="material-symbols-outlined" style="margin-left: 5px;">volunteer_activism</span></strong></p>
   </div>
 
   <div class="row">
@@ -82,17 +67,8 @@
           <a th:href="'/item/' + ${item.id}" class="text-dark">
               <img th:src="${item.imgUrl}" class="repImg" th:alt="${item.itemNm}" height="400">
             <div class="main_item_dtl">
-              <h5 class="item_title">[[${item.itemNm}]]</h5>
-              <hr>
-              <strong class=""><span>[[${item.price}]]원</span></strong>
-            </div>
-            <div class="main_item_status">
-                <span th:if="${item.itemSellStatus.isSell()}" class="badge badge-primary mgb-15" style="background: #cbc3c3;">
-                    판매중
-                </span>
-                <span th:unless="${item.itemSellStatus.isSell()}" class="badge btn-danger mgb-15">
-                    품절
-                </span>
+              <p class="item_title">[[${item.itemNm}]]</p>
+              <span>[[${item.price}]]원</span>
             </div>
           </a>
         </div>
@@ -106,7 +82,7 @@
     <ul class="pagination justify-content-center">
       <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
         <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label="Previous" class="page-link">
-          <span aria-hidden='true'><</span>
+          <span aria-hidden='true'>&laquo;</span>
         </a>
       </li>
 
@@ -115,13 +91,13 @@
       </li>
 
       <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-        <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" saria-label="Next" class="page-link">
-          <span aria-hidden="true">></span>
+        <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label="Next" class="page-link">
+          <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
     </ul>
   </div>
-</div>
 
+</div>
 
 </html>

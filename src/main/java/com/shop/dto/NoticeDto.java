@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 public class NoticeDto {
     private Long id;
+    private String author;
     private String noticeTitle;
     private Integer noticeContent;
     private LocalDateTime createTime;

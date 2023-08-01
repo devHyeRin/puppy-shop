@@ -26,7 +26,7 @@
 
 <div layout:fragment="content">
   <div class="item_wrap">
-    <h3 class="category_title line">굿즈<img class="category_icon" src="/img/stuff.png"></h3>
+    <h3 class="category_title line">위생/배변<img class="category_icon" src="/img/bath2.png"></h3>
   </div>
   <div class="row">
     <th:block th:each="item, status: ${items.getContent()}">
@@ -54,22 +54,21 @@
                 < items.totalPages ? start + (maxPage - 1) : items.totalPages)})">
     <ul class="pagination justify-content-center">
       <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-        <a th:href="@{'/category/stuff' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label="Previous" class="page-link">
+        <a th:href="@{'/category/bowel' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label="Previous" class="page-link">
           <span aria-hidden='true'>&laquo;</span>
         </a>
       </li>
 
       <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
-        <a th:href="@{'/category/stuff' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+        <a th:href="@{'/category/bowel' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
       </li>
 
       <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-        <a th:href="@{'/category/stuff' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" saria-label="Next" class="page-link">
+        <a th:href="@{'/category/bowel' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" saria-label="Next" class="page-link">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
     </ul>
   </div>
-
 </div>
 </html>

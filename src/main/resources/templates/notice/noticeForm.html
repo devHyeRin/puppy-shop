@@ -118,11 +118,11 @@
 
       <div th:if="${#strings.isEmpty(noticeFormDto.id)}" style="float:right; margin-top: 30px;">
         <a href="/" role="button" class="btn btn-outline-dark">취소</a>
-        <button th:formaction="@{/admin/notice/new}" type="submit" class="btn btn-primary" id="newBtn">등록하기</button>
+        <button th:formaction="@{/admin/notice/new}" type="submit" style="background: #fd7996; color: #fff; border: #d27878; font-size: 18px" class="btn btn-primary" id="newBtn">등록하기</button>
       </div>
       <div th:unless="${#strings.isEmpty(noticeFormDto.id)}" style="float:right; margin-top: 30px;">
         <a href="/admin/notices" role="button" class="btn btn-outline-dark">취소</a>
-        <button th:formaction="@{'/admin/notice/'+${noticeFormDto.id}}" type="submit" class="btn btn-primary" id="updateBtn">수정하기</button>
+        <button th:formaction="@{'/admin/notice/'+${noticeFormDto.id}}"  style="background: #fd7996; color: #fff; border: #d27878; font-size: 18px" type="submit" class="btn btn-primary" id="updateBtn">수정하기</button>
       </div>
 
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

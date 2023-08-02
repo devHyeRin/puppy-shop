@@ -11,6 +11,10 @@
       border-bottom: 2px solid gray;
       border-top: 2px solid gray;
     }
+    .notice-img{
+        width: 588px;
+        height: 500px;
+    }
   </style>
 </th:block>
 
@@ -33,7 +37,7 @@
       <p th:text="${notice.noticeContent}" style="padding: 16px;"></p>
     </div>
       <div th:each="noticeImg : ${notice.noticeImgDtoList}" class="text-center">
-          <img th:if="${not #strings.isEmpty(noticeImg.imgUrl)}" th:src="${noticeImg.imgUrl}" class="rounded mgb-15" width="800">
+          <img th:if="${not #strings.isEmpty(noticeImg.imgUrl)}" th:src="${noticeImg.imgUrl}" class="rounded mgb-15 notice-img" width="800">
       </div>
     <hr>
 

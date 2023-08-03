@@ -81,7 +81,8 @@
                 <col width="5%"/>
                 <col width="10%"/>
                 <col width="20%/">
-                <col width="15%/">
+                <col width="8%/">
+                <col width="8%/">
                 <col width="10%/">
                 <col width="10%/">
             </colgroup>
@@ -91,6 +92,7 @@
                 <th>분류</th>
                 <th>상품명</th>
                 <th>상태</th>
+                <th>재고</th>
                 <th>등록자</th>
                 <th>등록일</th>
             </tr>
@@ -103,6 +105,7 @@
                     <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}"></a>
                 </td>
                 <td th:text="${item.itemSellStatus.isSell()} ? '판매중' : '품절'"></td>
+                <td th:text="${item.stockNumber}"></td>
                 <td th:text="${item.createdBy}"></td>
                 <td th:text="${#temporals.format(item.createTime, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>

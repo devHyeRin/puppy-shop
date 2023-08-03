@@ -140,7 +140,7 @@
         <th><span>상품 가격<sup style="font-size: 20px; color: red">*</sup></span></th>
         <td>
           <div class="itemInput" style="width: 30%">
-            <input type="number" th:field="*{price}" class="form-control" placeholder="가격 입력">원
+            <input type="number" th:field="*{price}" class="form-control" placeholder="가격 입력">
           </div>
           <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="fieldError">Incorrect data</p>
         </td>
@@ -149,7 +149,7 @@
         <th><span>수량<sup style="font-size: 20px; color: red">*</sup></span></th>
         <td>
           <div class="itemInput" style="width: 30%">
-            <input type="number" th:field="*{stockNumber}" class="form-control" placeholder="재고 입력">개
+            <input type="number" th:field="*{stockNumber}" class="form-control" placeholder="재고 입력">
           </div>
           <p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}" class="fieldError">Incorrect data</p>
         </td>
@@ -195,7 +195,7 @@
     </div>
     <div th:unless="${#strings.isEmpty(itemFormDto.id)}" style="text-align : center">
       <a href="/admin/items" role="button" class="btn btn-outline-dark">취소</a>
-      <button th:formaction="@{'/admin/item/'+${itemFormDto.id}}" type="submit" id="updateBtn" class="btn btn-primary">상품 수정하기</button>
+      <button th:formaction="@{'/admin/item/'+${itemFormDto.id}}" type="submit" id="updateBtn" class="btn btn-primary" style="background: #fd7996; color: #fff; border: 1px solid white; font-size: 18px">상품 수정하기</button>
     </div>
 
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

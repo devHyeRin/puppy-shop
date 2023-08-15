@@ -2,9 +2,11 @@ package com.shop.controller;
 
 import com.shop.dto.MemberFormDto;
 import com.shop.entity.Member;
+import com.shop.service.MailService;
 import com.shop.service.MemberService;
 import com.shop.service.MemberUpdateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,10 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final MemberUpdateService memberUpdateService;
+    private final MailService mailService;
+
+    String confirm="";
+    boolean confirmCheck = false;
 
     /*회원가입 페이지 이동*/
     @GetMapping(value = "/new")
@@ -80,6 +86,22 @@ public class MemberController {
         return "member/memberLoginForm";
     }
 
+    //인증메일 보내기
+    @PostMapping("/{email}/emailConfirm")
+    public @ResponseBody ResponseEntity emailConfirm(@PathVariable("email") String email) throws Exception{
+        confirm = mailService.sendSimpleMessage(email);
+        return new ResponseEntity<String>("인증 메일을 전송했습니다. 메일함을 확인해주세요.", HttpStatus.OK);
+    }
+
+    //인증메일에 보낸 코드 체크
+    @PostMapping("/{code}/codeCheck")
+    public @ResponseBody ResponseEntity codeConfirm(@PathVariable("code") String code) throws Exception{
+        if(code.equals(confirm)){
+            confirmCheck=true;
+            return new ResponseEntity<String> ("인증되었습니다.", HttpStatus.OK);
+        }
+        return new ResponseEntity<String> ("인증 코드를 올바르게 입력해주세요.", HttpStatus.BAD_REQUEST);
+    }
 
     /*내 정보 수정*/
     @GetMapping(value = "/mypage")
@@ -110,11 +132,6 @@ public class MemberController {
         }
         return "redirect:/";
     }
-
-
-
-
-
 
 }
 

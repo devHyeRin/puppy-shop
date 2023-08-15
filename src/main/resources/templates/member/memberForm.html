@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.ofg"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
-
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
 <!--사용자 css 추가-->
 <th:block layout:fragment="css">
     <style>
@@ -25,6 +28,7 @@
             $("#memberBtn").on("click",function(e){
                 alert("회원가입이 완료되었습니다.\n로그인 후 이용해주세요.");
             });
+
         });
 
         function execDaumPostcode(){
@@ -58,6 +62,77 @@
                 }
             });
         }
+
+        function mailSend(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var mail = $("#username").val();
+
+            var url = "/members/" + mail + "/emailConfirm";
+            var paramData = {
+                email: mail
+            }
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                contentType: "application/json",
+                data: param,
+                beforeSend: function (xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType: "JSON",
+                cache: false,
+                success: function (result, status){
+
+                },
+                error: function (jqXHR, status, error){
+                    if (jqXHR.status == '401'){
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
+        }
+
+        function codeCheck(){
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var code = $("#codecheck").val();
+
+            var url = "/members/" + code + "/codeCheck";
+            var paramData = {
+                code: code
+            }
+
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url : url,
+                type : "POST",
+                contentType : "application/json",
+                data : param,
+                beforeSend : function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "JSON",
+                cache : false,
+                success : function(result, status){
+                },
+                error : function(jqXHR, status, error){
+                    if(jqXHR.status == '401'){
+                        location.href='/members/new';
+                    } else{
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
+        }
     </script>
 </th:block>
 
@@ -72,18 +147,24 @@
             <form action="/members/new" role="form" method="post" th:object="${memberFormDto}">
                 <div class="info-box">
                     <div class="info-box-sec">
-                        <label th:for="role" style="margin-right: 160px">권한<sup style="font-size: 20px; color: red">*</sup></span></label>
+                        <label th:for="role" style="margin-right: 160px">권한<sup style="font-size: 20px; color: red">*</sup></label>
                         <input type="radio" name="role" value="USER" checked>일반사용자
                         <input type="radio" name="role" style="margin-left: 20px;" value="ADMIN">관리자
                     </div>
                     <div class="info-box-sec">
-                        <label th:for="email" style="margin-right: 135px;">아이디<sup style="font-size: 20px; color: red">*</sup></span></label>
-                        <input class="form-input" type="text" th:field="*{email}"  id="username" placeholder="이메일 형식으로 입력해주세요.">
+                        <label th:for="email" style="margin-right: 135px;">아이디<sup style="font-size: 20px; color: red">*</sup></label>
+                        <input class="form-input" type="text" th:field="*{email}" id="username" placeholder="이메일 형식으로 입력해주세요.">
                         <input class="btn btn-secondary" type="button" onclick="usernameCheck()" value="중복확인">
                         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect date</p>
+                        <button class="btn btn-primary" style="background: #cbc3c3; border: 1px solid white;" onclick="mailSend()">메일 인증하기</button>
+                    </div>
+                    <div class="info-box-sec" id="c_1"> <!--이메일 인증-->
+                        <label th:for="codeCheck" style="margin-right: 120px;">인증 코드</label>
+                        <input class="form-input" type="text" id="codecheck" placeholder="인증 코드 입력 후 인증 확인 버튼을 꼭 눌러주세요.">
+                        <button class="btn btn-secondary" onclick="codeCheck()">인증 확인</button>
                     </div>
                     <div class="info-box-sec">
-                        <label th:for="password" style="margin-right: 115px;">비밀번호<sup style="font-size: 20px; color: red">*</sup></span></label>
+                        <label th:for="password" style="margin-right: 115px;">비밀번호<sup style="font-size: 20px; color: red">*</sup></label>
                         <input class="form-input" type="password" th:field="*{password}" placeholder="비밀번호(8자 이상, 16자 이내)">
                         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect date</p>
                     </div>
@@ -93,17 +174,17 @@
                         <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="fieldError">Incorrect date</p>
                     </div>
                     <div class="info-box-sec">
-                        <label th:for="name" style="margin-right: 149px;">이름<sup style="font-size: 20px; color: red">*</sup></span></label>
+                        <label th:for="name" style="margin-right: 149px;">이름<sup style="font-size: 20px; color: red">*</sup></label>
                         <input class="form-input" type="text" th:field="*{name}" placeholder="이름을 입력해주세요.">
                         <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect date</p>
                     </div>
                     <div class="info-box-sec" >
-                        <label th:for="phoneNumber" style="margin-right: 112px;">전화번호<sup style="font-size: 20px; color: red">*</sup></span></label>
+                        <label th:for="phoneNumber" style="margin-right: 112px;">전화번호<sup style="font-size: 20px; color: red">*</sup></label>
                         <input class="form-input" type="text" th:field="*{phoneNumber}"  placeholder="전화번호를 입력해주세요.">
                         <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="fieldError">Incorrect date</p>
                     </div>
                     <div class="info-box-sec">
-                        <label th:for="address1" style="margin-right: 150px">주소<sup style="font-size: 20px; color: red">*</sup></span></label>
+                        <label th:for="address1" style="margin-right: 150px">주소<sup style="font-size: 20px; color: red">*</sup></label>
                         <input type="button" value="주소검색" class="btn btn-outline-secondary" onclick="execDaumPostcode()">
                         <input class="form-input" style="margin: 10px 0 15px 200px;" type="text" th:field="*{address1}" id="roadAddress">
                         <input class="form-input" style="margin-left: 200px;" type="text" th:field="*{address2}">

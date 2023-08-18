@@ -27,21 +27,19 @@ public class MailService {
         message.setSubject("<FLUFFY PUPPY> 회원 가입 이메일 인증");  // 제목
 
         String msg = "";
-        msg += "<div style='margin:20px;'>";
-        msg += "<h1>안녕하세요. FLUFFY PUPPY 입니다.</h1>";
+        msg += "<div style='margin:20px; padding:20px; border:1px solid black;'>";
+        msg += "<h2>안녕하세요. FLUFFY PUPPY 입니다.</h2>";
         msg += "<br>";
         msg += "<p>아래 코드를 복사해서 입력해주세요.</p>";
         msg += "<br>";
-        msg += "<p>감사합니다.</p>";
-        msg += "<br>";
-        msg += "<div align='center' style='border:1px solid black; font-family:verdana;'>";
-        msg += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+        msg += "<div font-family:verdana;'>";
+        msg += "<h3 style='color:red;'>인증 코드</h3>";
         msg += "<div style='font-size:130%'>";
-        msg += "CODE: <strong>";
+        msg += "CODE : <strong style='color:red;'>";
         msg += ePw + "</strong><div><br/>";
         msg += "</div>";
         message.setText(msg, "utf-8", "html");  //내용
-        message.setFrom(new InternetAddress("rhrnal8594@naver.com", "이메일 인증"));
+        message.setFrom(new InternetAddress("rhrnal8594@naver.com", "회원가입 인증"));
 
         return message;
 
